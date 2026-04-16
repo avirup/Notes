@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111"/>
+    </marker>
+    <style>
+      .title { font: 700 24px 'Times New Roman', serif; fill: #111111; }
+      .label { font: 18px 'Arial', sans-serif; fill: #111111; }
+      .small { font: 15px 'Arial', sans-serif; fill: #111111; }
+      .curve1 { stroke: #111111; stroke-width: 2.2; fill: none; }
+      .curve2 { stroke: #3a3a3a; stroke-width: 2.2; fill: none; }
+      .curve3 { stroke: #5a5a5a; stroke-width: 2.2; fill: none; }
+      .curve4 { stroke: #7a7a7a; stroke-width: 2.2; fill: none; }
+      .dash { stroke: #111111; stroke-width: 1.4; stroke-dasharray: 7 5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="650" fill="#ffffff"/>
+  <text x="500" y="42" text-anchor="middle" class="title">Figure 1.2 Power BJT Output Characteristics and Saturation Regions</text>
+
+  <rect x="140" y="120" width="720" height="400" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+  <rect x="140" y="120" width="80" height="400" fill="#ececec"/>
+  <rect x="220" y="120" width="95" height="400" fill="#f5f5f5"/>
+
+  <line x1="140" y1="520" x2="875" y2="520" stroke="#111111" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="140" y1="520" x2="140" y2="105" stroke="#111111" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="880" y="542" class="label">Collector-emitter voltage Vce</text>
+  <text x="55" y="110" class="label" transform="rotate(-90 55 110)">Collector current Ic</text>
+
+  <text x="168" y="152" transform="rotate(-90 168 152)" class="small">Hard saturation</text>
+  <text x="265" y="185" transform="rotate(-90 265 185)" class="small">Quasi-saturation</text>
+  <text x="500" y="150" text-anchor="middle" class="label">Active region</text>
+
+  <line x1="220" y1="120" x2="220" y2="520" class="dash"/>
+  <line x1="315" y1="120" x2="315" y2="520" class="dash"/>
+
+  <path d="M 140 520 C 165 518, 178 518, 200 518 C 240 518, 300 518, 850 518" class="curve4"/>
+  <text x="655" y="506" class="small">Cutoff or Ib = 0</text>
+
+  <path d="M 140 520 C 170 490, 220 470, 300 466 C 450 464, 650 463, 840 462" class="curve4"/>
+  <path d="M 140 520 C 170 445, 225 395, 310 386 C 450 383, 650 381, 840 380" class="curve3"/>
+  <path d="M 140 520 C 170 410, 228 330, 312 310 C 450 304, 650 302, 840 300" class="curve2"/>
+  <path d="M 140 520 C 170 370, 230 275, 312 245 C 450 238, 650 236, 840 234" class="curve1"/>
+
+  <text x="848" y="465" class="small">Ib1</text>
+  <text x="848" y="383" class="small">Ib2</text>
+  <text x="848" y="303" class="small">Ib3</text>
+  <text x="848" y="237" class="small">Ib4</text>
+
+  <line x1="790" y1="330" x2="790" y2="250" stroke="#111111" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="808" y="296" class="small">Increasing Ib</text>
+
+  <rect x="585" y="168" width="235" height="72" fill="#f7f7f7" stroke="#111111" stroke-width="1.2"/>
+  <text x="602" y="192" class="small">Extra base drive beyond the knee</text>
+  <text x="602" y="214" class="small">reduces Vce only slightly but</text>
+  <text x="602" y="236" class="small">increases stored charge.</text>
+  <line x1="585" y1="218" x2="320" y2="270" stroke="#111111" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <text x="175" y="548" class="small">0</text>
+  <text x="300" y="548" class="small">Low Vce</text>
+  <text x="698" y="548" class="small">Higher Vce</text>
+
+  <text x="112" y="520" class="small">0</text>
+  <text x="105" y="386" class="small">Medium Ic</text>
+  <text x="112" y="236" class="small">High Ic</text>
+
+  <rect x="608" y="435" width="218" height="52" fill="#f7f7f7" stroke="#111111" stroke-width="1.2"/>
+  <text x="622" y="457" class="small">Flat portions show the active region,</text>
+  <text x="622" y="478" class="small">where Ic is mainly set by base current.</text>
+</svg>
