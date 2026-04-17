@@ -1,8 +1,8 @@
-# Chapter 3: DIAC and TRIAC
+# Chapter 1.3: DIAC and TRIAC
 
 ## Chapter opening
 
-Chapter 2 introduced the SCR as a gate-triggered power device that can block voltage, latch into conduction, and turn OFF only when current falls low enough. That was an important turning point, because it taught us that power-electronics switches are not all controlled in the same way. This chapter now takes that idea into the world of AC power control.
+Chapter 1.2 introduced the SCR as a gate-triggered power device that can block voltage, latch into conduction, and turn OFF only when current falls low enough. That was an important turning point, because it taught us that power-electronics switches are not all controlled in the same way. This chapter now takes that idea into the world of AC power control.
 
 The two devices in this chapter are the **DIAC** and the **TRIAC**. They are closely related, but they do different jobs. A TRIAC is a three-terminal bidirectional thyristor-family device used to control power from an AC source. A DIAC is a two-terminal bidirectional trigger device that is often used to help fire a TRIAC more symmetrically. Together they form one of the classic building blocks of light dimmers, fan regulators, heater controls, and small AC load controllers.
 
@@ -12,13 +12,13 @@ By the end of the chapter, you should be able to explain what a DIAC does, how a
 
 ## Prerequisites check
 
-- You should know the basic SCR ideas from Chapter 2: latching, holding current, gate triggering, and natural turn-OFF at current zero.
+- You should know the basic SCR ideas from Chapter 1.2: latching, holding current, gate triggering, and natural turn-OFF at current zero.
 - You should know the relation between RMS and peak value for a sinusoid. If needed, remember that $V_m = \sqrt{2}V_{rms}$.
 - You should be comfortable with the difference between a **resistive load** and an **inductive load**.
 - You should know the basic idea of an RC charging circuit, even if you are not yet fully confident with the mathematics.
 - You should know that mains-connected circuits need voltage margin, current rating margin, and protection against unwanted transients.
 
-If the SCR terms **latching current** and **holding current** feel weak, review Chapter 2 before going further. We will use them again here, because a TRIAC is also a latching device.
+If the SCR terms **latching current** and **holding current** feel weak, review Chapter 1.2 before going further. We will use them again here, because a TRIAC is also a latching device.
 
 ## Core content
 

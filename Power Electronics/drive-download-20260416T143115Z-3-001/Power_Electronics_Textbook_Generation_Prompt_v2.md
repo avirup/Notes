@@ -23,7 +23,7 @@ The goal is to help the reader become comfortable enough with power-electronics 
 
 - The book must read like a **real textbook**, not lecture notes, a cheat sheet, or a summary.
 - Write at **full textbook depth** and explain methods fully when they are introduced.
-- A typical chapter should be about **8,000-18,000 words**, depending on the topic.
+- A typical chapter should be about **4,000-6,000 words**, depending on the topic.
 - Prioritize **intuition first, mathematics second**.
 - Start new ideas with a concrete physical or numerical example before generalizing.
 - Explain equations rather than dropping them without context.

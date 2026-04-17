@@ -1,4 +1,4 @@
-# Chapter 1: Power BJT
+# Chapter 1.1: Power BJT
 
 ## Chapter opening
 

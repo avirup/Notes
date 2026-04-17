@@ -1,4 +1,4 @@
-# Chapter 2: Thyristor (SCR)
+# Chapter 1.2: Thyristor (SCR)
 
 ## Chapter opening
 
@@ -9,7 +9,7 @@ Commercially introduced in 1957, the SCR moved power control away from electrome
 ## Prerequisites check
 
 - forward and reverse bias of a PN junction
-- basic transistor action from Chapter 1, especially current gain and switching operation
+- basic transistor action from Chapter 1.1, especially current gain and switching operation
 - RMS and peak values of AC quantities; for a sinusoid, $V_m = \sqrt{2}V_{rms}$
 - the fact that an inductor resists sudden change of current and a capacitor resists sudden change of voltage
 - the idea that semiconductor devices have electrical ratings and temperature limits
@@ -239,7 +239,7 @@ At 50 Hz:
 - $\alpha = 90^\circ$ corresponds to a delay of $5 \text{ ms}$
 - $\alpha = 150^\circ$ corresponds to a delay of about $8.33 \text{ ms}$
 
-The SCR therefore allows the start of conduction to be placed at a controlled point within each half-cycle. The mathematical consequences of firing angle are taken up in Chapter 3.
+The SCR therefore allows the start of conduction to be placed at a controlled point within each half-cycle. The mathematical consequences of firing angle are taken up in Chapter 3.1.
 
 ### 2.1.5 Turn-OFF and commutation methods: natural (line) commutation and forced commutation
 
