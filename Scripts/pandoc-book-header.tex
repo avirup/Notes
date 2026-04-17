@@ -1,0 +1,27 @@
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{emptypage}
+\usepackage{graphicx}
+\usepackage{bookmark}
+\usepackage{microtype}
+\usepackage{setspace}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {0.5em}
+  {}
+
+\titlespacing*{\chapter}{0pt}{0pt}{1.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\AtBeginDocument{
+  \raggedbottom
+}

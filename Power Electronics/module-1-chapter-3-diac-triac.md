@@ -29,7 +29,7 @@ The DIAC became important as a companion trigger device. In simple RC phase-cont
 Table 3.1: Why DIAC and TRIAC became important
 
 | Device | Practical need it addressed | Why it mattered |
-|---|---|---|
+| --- | --- | --- |
 | DIAC | Symmetrical triggering in both half-cycles | Helped simple RC control circuits fire more evenly |
 | TRIAC | Controlled AC power with one device instead of two anti-parallel SCRs | Reduced component count in dimmers, regulators, and small AC controllers |
 | DIAC + TRIAC pair | Low-cost phase-angle control from mains supply | Enabled compact light dimmers, fan regulators, heater controls, and small appliance controllers |
@@ -93,7 +93,7 @@ Unlike the DIAC, the TRIAC is not ordinarily used by allowing uncontrolled break
 Table 3.2: DIAC and TRIAC at a glance
 
 | Feature | DIAC | TRIAC |
-|---|---|---|
+| --- | --- | --- |
 | Number of terminals | 2 | 3 |
 | Main role | Trigger device | AC power switch |
 | Gate terminal | No | Yes |
@@ -115,7 +115,7 @@ Because TRIAC operation depends on both main-terminal polarity and gate-current 
 Table 3.3: TRIAC triggering quadrants
 
 | Quadrant | Main-terminal voltage | Gate-current polarity | Practical note |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | QI | $V_{A2A1} > 0$ | Gate current positive with respect to A1 | Common and usually sensitive |
 | QII | $V_{A2A1} > 0$ | Gate current negative with respect to A1 | Valid, but latching behavior can be less favorable |
 | QIII | $V_{A2A1} < 0$ | Gate current negative with respect to A1 | Common and usually sensitive |
@@ -233,7 +233,7 @@ TRIACs are also used in static relays, small pumps, solenoids, appliance control
 Table 3.4: Where DIAC-TRIAC control fits well and where it does not
 
 | Load or application | Suitability of simple DIAC-TRIAC phase control | Reason |
-|---|---|---|
+| --- | --- | --- |
 | Incandescent lamp | Very good | Load is mostly resistive |
 | Resistive heater | Very good | Current follows voltage closely |
 | Small ceiling fan regulator | Moderate | Works in practice, but motor is inductive and may hum or heat |

@@ -17,7 +17,7 @@ The name itself describes the device. **Insulated-gate** indicates that control 
 Table 5.1: The design gap that led to the IGBT
 
 | Device | Main strength | Main limitation in power switching |
-|---|---|---|
+| --- | --- | --- |
 | Power BJT | Good conduction capability at high voltage | Needs continuous base current; turn-off slowed by stored charge |
 | Power MOSFET | Easy voltage drive and fast switching | High-voltage devices suffer rising $R_{DS(\mathrm{on})}$ |
 | IGBT | Combines insulated gate with strong high-voltage current conduction | Turn-off is slower than MOSFET because of stored charge and tail current |
@@ -226,7 +226,7 @@ Device selection in power electronics depends on voltage class, current, switchi
 Table 5.2: Practical comparison of power BJT, power MOSFET, and IGBT
 
 | Feature | Power BJT | Power MOSFET | IGBT |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Control type | Current-controlled | Voltage-controlled | Voltage-controlled |
 | Input burden in steady state | Significant base current | Very small ideal steady-state current | Very small ideal steady-state current |
 | Main ON-state description | $V_{CE(\mathrm{sat})}$ | $R_{DS(\mathrm{on})}$ | $V_{CE(\mathrm{sat})}$ |

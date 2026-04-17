@@ -191,7 +191,7 @@ Table 10.1 compares the three main single-phase topologies discussed in this cha
 Table 10.1: Comparing single-phase controlled-rectifier topologies
 
 | Topology | Controlled devices used | Uses both half-cycles? | Natural freewheeling path with inductive load? | Can average output become negative? | Typical application picture |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | Half-wave controlled rectifier | 1 SCR | No | No, unless a freewheeling diode is added | No practical inversion mode | Foundational teaching circuit, low-cost power control |
 | Fully controlled bridge | 4 SCRs | Yes | No inherent freewheeling path | Yes, when current is continuous and $\alpha > 90^\circ$ | Controlled DC supplies, classical drives, line-commutated converters |
 | Semi-controlled bridge | 2 SCRs + 2 diodes | Yes | Yes | No | Battery chargers, one-way variable DC front ends |
@@ -253,7 +253,7 @@ Table 10.2 collects the principal expressions from this chapter.
 Table 10.2: Summary of important average and RMS expressions
 
 | Circuit and load condition | Average output voltage | RMS output voltage | Main note |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Half-wave controlled rectifier, R load | $\dfrac{V_m}{2\pi}(1+\cos\alpha)$ | $\dfrac{V_m}{2}\sqrt{1-\dfrac{\alpha}{\pi}+\dfrac{\sin 2\alpha}{2\pi}}$ | Conduction from $\alpha$ to $\pi$ |
 | Half-wave controlled rectifier, R-L load without freewheeling diode | $\dfrac{V_m}{2\pi}(\cos\alpha-\cos\beta)$ | Depends on $\beta$ and exact current continuity | Negative output interval can appear |
 | Half-wave controlled rectifier, R-L load with freewheeling diode | $\dfrac{V_m}{2\pi}(1+\cos\alpha)$ | Depends on current waveform | Freewheeling prevents negative output voltage |

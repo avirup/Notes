@@ -116,7 +116,7 @@ Table 9.1 compares the two loss mechanisms.
 Table 9.1: Conduction and switching losses compared
 
 | Loss type | When it appears | Main physical cause | Usually worsens with |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Conduction loss | While the device is ON | ON-state resistance or ON-state voltage drop | Higher current, higher device temperature |
 | Switching loss | During turn-ON and turn-OFF | Voltage-current overlap during finite switching time | Higher voltage, higher current, higher frequency, slower switching |
 
@@ -151,7 +151,7 @@ Table 9.2 lists the main thermal terms used in datasheets and heat-sink notes.
 Table 9.2: Main thermal-management terms
 
 | Symbol | Meaning | Plain-language interpretation |
-|---|---|---|
+| --- | --- | --- |
 | $T_j$ | Junction temperature | Temperature of the semiconductor silicon where heat is generated |
 | $T_c$ | Case temperature | Temperature at the package case or specified mounting surface |
 | $T_a$ | Ambient temperature | Temperature of the surrounding air |
@@ -271,7 +271,7 @@ At higher power density, the cooling method becomes part of the converter archit
 Table 9.3: Cooling approaches at beginner level
 
 | Cooling approach | Main strengths | Main limitations | Typical fit |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Natural convection | Simple, quiet, no moving parts, higher mechanical reliability | Larger heat sink often needed, performance falls in cramped hot enclosures | Small chargers, low-power converters, open enclosures |
 | Forced-air cooling | Better heat removal for size, lower effective sink-to-ambient thermal resistance | Fan failure, dust, noise, extra power use | UPS systems, inverter cabinets, compact medium-power converters |
 | Liquid cooling | Very high heat-removal capability in compact space | Higher cost, complexity, pump and sealing concerns | High-power EV and industrial converters |
@@ -329,7 +329,7 @@ If the device sees short overload pulses, the immediate junction temperature ris
 Table 9.4: Reading the STGWA40HP65FB for thermal meaning
 
 | Datasheet item | What it means in plain language | Why it matters thermally |
-|---|---|---|
+| --- | --- | --- |
 | $T_J = 175^\circ\text{C}$ max | The silicon cannot safely exceed this limit | Sets the absolute ceiling for thermal design |
 | $R_{\text{thJC}} = 0.53^\circ\text{C}/\text{W}$ | Heat still sees resistance even before leaving the package | Affects junction rise for every watt dissipated |
 | $P_{\text{TOT}} = 283 \text{ W}$ at $T_C = 25^\circ\text{C}$ | Large dissipation is possible only with a cool case | Prevents misreading the package as self-cooling |

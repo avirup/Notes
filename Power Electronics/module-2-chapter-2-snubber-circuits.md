@@ -55,7 +55,7 @@ Table 7.1 summarizes the main reasons snubbers appear.
 Table 7.1: Why snubber circuits are used
 
 | Problem in the power stage | What the snubber tries to do | Typical consequence if no snubber is used |
-|---|---|---|
+| --- | --- | --- |
 | Stray or leakage inductance stores energy | Provide a controlled path for that energy | Overvoltage spike at turn-OFF |
 | Device or load capacitances resonate with inductance | Add damping or clamp voltage | Ringing, EMI, repeated stress |
 | SCR or TRIAC sees rapid voltage rise | Reduce effective $dv/dt$ across device | False turn-ON |
@@ -220,7 +220,7 @@ Table 7.2 summarizes the three main protective networks in this chapter.
 Table 7.2: RC snubber, RCD snubber, and freewheeling diode compared
 
 | Network | Main purpose | Main strength | Main tradeoff | Typical place |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | RC snubber | Reduce $dv/dt$ and damp ringing | Simple and widely applicable | Continuous loss and extra turn-ON burden | Across SCR, TRIAC, switch, or diode |
 | RCD snubber | Clamp overvoltage more selectively | Better suited to leakage-spike control | Dissipates leakage energy and needs tuning | Flyback primary switch, clamp node |
 | Freewheeling diode | Provide path for inductive current after switch state change | Strong reduction of voltage stress from interrupted load current | Slow current decay if clamp voltage is low | Across inductive load or as recirculation path in converter leg |

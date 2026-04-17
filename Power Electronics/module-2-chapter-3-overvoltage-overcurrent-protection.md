@@ -123,7 +123,7 @@ Table 8.1 compares the three main overvoltage methods introduced in this section
 Table 8.1: MOV, TVS diode, and crowbar compared at beginner level
 
 | Protection method | Main physical action | Strongest use case | Main limitation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | MOV | Nonlinear resistance diverts surge current | Input surge suppression, especially at AC or higher-energy entry points | Degrades with repeated surges; not suited to sustained overvoltage by itself |
 | TVS diode | Avalanche clamp limits transient voltage quickly | Fast local protection of sensitive low-voltage buses and nodes | Usually lower energy capability than a mains MOV; overstress may short the device |
 | Crowbar circuit | Deliberately forces a low-impedance fault path when threshold is exceeded | Sustained overvoltage protection of sensitive DC supplies | Requires current limiting or fuse action elsewhere; trips hard rather than gently |
@@ -301,7 +301,7 @@ Table 8.2 compares the overcurrent methods introduced in this section.
 Table 8.2: Overcurrent protection methods compared
 
 | Method | Main response style | Best at | Main tradeoff |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Fast-acting / HRC fuse | Opens the circuit after overcurrent energy exceeds its design limit | High-fault-current interruption and backup protection | Sacrificial, passive, and not selective about fault cause |
 | Electronic current limiting | Actively controls or shuts down the converter as current approaches threshold | Graceful overload handling and controlled converter behavior | Depends on sensing speed, control action, and added circuitry |
 | DESAT detection | Uses abnormal ON-state device voltage to detect severe short circuit locally | Fast protection of IGBTs or similar devices during hard faults | Usually complements, not replaces, fuses and wider system protection |

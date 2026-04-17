@@ -80,7 +80,7 @@ Four operating conditions must be distinguished in power-BJT switching: **cutoff
 Table 1.2: Practical operating regions of a power BJT
 
 | Region | External behavior | Junction picture | Power-electronics meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Cutoff | Very little collector current | Emitter-base not forward biased | Switch is OFF |
 | Active region | $I_C$ approximately controlled by base current | Emitter-base forward biased, collector-base reverse biased | Used mainly during transition, not as steady ON state in power switching |
 | Quasi-saturation | $V_{CE}$ has dropped significantly, but extra base drive gives diminishing reduction in $V_{CE}$ and more stored charge | The collector side is no longer behaving like a simple reverse-biased region everywhere | Common practical region in power BJTs as they are driven hard |
@@ -253,7 +253,7 @@ A power-transistor datasheet contains many numbers. The most important ones are 
 Table 1.3: Key power-BJT specifications and what they mean
 
 | Symbol | Meaning | Why you should care |
-|---|---|---|
+| --- | --- | --- |
 | $V_{CEO}$ or $V_{CEO(\text{sus})}$ | Collector-emitter voltage rating with base open | Tells you the off-state voltage limit in a common test condition |
 | $V_{CES}$ | Collector-emitter voltage with base shorted to emitter | Often larger than $V_{CEO}$; useful in off-state stress interpretation |
 | $I_C$, $I_{CM}$ | Continuous and peak collector current | Needed for load current and transient current checks |
@@ -290,7 +290,7 @@ Table 1.4 summarizes the interpretation.
 Table 1.4: Interpreting the ST13007 datasheet
 
 | Datasheet item | What it tells us | Design meaning |
-|---|---|---|
+| --- | --- | --- |
 | Title and description | High-voltage fast-switching NPN power transistor | Intended for SMPS-type switching, not general low-voltage only |
 | `V_CEO = 400 V`, `V_CES = 700 V` | High off-state voltage class | Suitable general class for off-line DC-bus switching with proper clamp margin |
 | `I_C = 8 A` | Current capability | Must still be checked against SOA, not used blindly |

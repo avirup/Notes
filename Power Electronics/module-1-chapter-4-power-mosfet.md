@@ -43,7 +43,7 @@ Because a MOSFET is a **majority-carrier device**, it does not rely on large sto
 Table 4.1: Why the power MOSFET became important
 
 | Property | Why it mattered in practice |
-|---|---|
+| --- | --- |
 | Voltage-controlled gate | Simplified the drive circuit compared with BJTs |
 | Majority-carrier operation | Enabled fast switching and high-frequency use |
 | Vertical structure | Allowed useful voltage blocking and current capability |
@@ -280,7 +280,7 @@ These equations show why a MOSFET that appears safe electrically may still fail 
 Table 4.2: Practical meaning of major power-MOSFET specifications
 
 | Datasheet item | What it means | Why it matters |
-|---|---|---|
+| --- | --- | --- |
 | $V_{DSS}$ or BVDSS | Maximum drain-source blocking voltage | Must exceed worst-case circuit voltage with margin |
 | $V_{GS(\mathrm{th})}$ | Threshold voltage at small test current | Indicates turn-on onset, not full enhancement |
 | $R_{DS(\mathrm{on})}$ | ON resistance at stated $V_{GS}$ and temperature | Sets conduction loss |

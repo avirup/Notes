@@ -27,7 +27,7 @@ The SCR also became the basis of a wider thyristor family. The IEEE milestone no
 Table 2.1: Why the SCR became a foundational power device
 
 | Reason | Why it mattered |
-|---|---|
+| --- | --- |
 | High-voltage blocking capability | Made direct connection to power circuits practical |
 | High current capability | Allowed real industrial loads to be controlled |
 | Gate triggering | Enabled electronic control without a large mechanical actuator |
@@ -130,7 +130,7 @@ The static V-I characteristic identifies the main operating regions of an SCR: r
 Table 2.2: Main regions of the SCR static characteristic
 
 | Region | External condition | Device behavior | Practical meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Reverse blocking | Cathode positive with respect to anode | Very small reverse leakage current | SCR is OFF in reverse direction |
 | Reverse breakdown | Reverse voltage too high | Large reverse current | Abnormal and unsafe operating region |
 | Forward blocking | Anode positive but not yet triggered | Only a small forward leakage current | SCR is forward biased but still OFF |
@@ -222,7 +222,7 @@ Some thyristors are designed so that light generates the carriers needed to star
 Table 2.3: SCR turn-ON methods in practice
 
 | Turn-ON method | Physical basis | Used intentionally? | Typical design view |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Gate triggering | Carrier injection through gate | Yes | Normal and preferred |
 | Forward-voltage breakover | Exceeding $V_{BO}$ | Rarely | Avoid as routine control method |
 | $dv/dt$ triggering | Junction-capacitance displacement current | No | Prevent with protection |
@@ -268,7 +268,7 @@ Many power-electronics texts classify forced-commutation methods as Classes A to
 Table 2.4: Concept-level view of forced commutation classes
 
 | Class | Concept | Main idea |
-|---|---|---|
+| --- | --- | --- |
 | Class A | Load or self commutation | The load itself forms an underdamped RLC path that naturally drives current to zero |
 | Class B | Resonant-pulse commutation | An LC branch generates a resonant current pulse to oppose device current |
 | Class C | Complementary commutation | One SCR helps turn OFF another SCR |
@@ -304,7 +304,7 @@ The value of the method is its pulse quality. A UJT trigger produces a clearer a
 Table 2.5: Classical SCR triggering circuits
 
 | Trigger circuit | Main idea | Advantage | Limitation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | R triggering | Gate current through a resistor | Very simple | Poor timing control, little isolation |
 | R-C triggering | RC charging delay sets firing angle | Useful for AC phase control | Pulse quality and repeatability are limited |
 | UJT-based triggering | Relaxation oscillator generates sharp pulses | Better timing and cleaner pulse generation | More components and extra circuit complexity |
@@ -324,7 +324,7 @@ An SCR datasheet does not describe only one voltage rating and one current ratin
 Table 2.6: Key SCR ratings and what they mean
 
 | Symbol | Meaning | Why it matters |
-|---|---|---|
+| --- | --- | --- |
 | $V_{DRM}$ | Repetitive peak off-state voltage | Forward blocking limit under repetitive conditions |
 | $V_{RRM}$ | Repetitive peak reverse voltage | Reverse blocking limit |
 | $I_T(RMS)$ | On-state RMS current | Continuous current capability for AC conduction |
@@ -423,7 +423,7 @@ The voltage classes, gate-trigger variants, latching and holding currents, dynam
 Table 2.7: Interpreting the TYN612 datasheet
 
 | Datasheet item | What it says | What it means in design |
-|---|---|---|
+| --- | --- | --- |
 | 600 V, 800 V, 1000 V versions | Several blocking classes in one family | Choose based on actual line peak plus transient margin |
 | $I_T(RMS)=12 \text{ A}$ | Medium-current SCR family | Suitable for many control and protection roles, not arbitrarily for any current |
 | $I_{GT}=5 \text{ mA}$ or $15 \text{ mA}$ versions | Different trigger sensitivities | Drive-circuit design and noise margin depend on variant |

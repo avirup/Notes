@@ -44,7 +44,7 @@ Table 2.1 summarizes the main requirements of a good drive circuit.
 Table 2.1: Main requirements of a good drive circuit
 
 | Requirement | What it means in practice | Why it matters |
-|---|---|---|
+| --- | --- | --- |
 | Correct drive amplitude | Apply the correct base-emitter or gate-source / gate-emitter voltage | Too little drive raises loss; too much drive can damage the device |
 | Adequate source and sink capability | Charge and discharge the control terminal quickly | Faster, cleaner switching and lower switching loss |
 | Correct reference point | Drive voltage must be measured with respect to the correct source or emitter terminal | A 12 V gate signal is meaningful only if it is 12 V above the local source/emitter |
@@ -197,7 +197,7 @@ Table 2.2 summarizes the main approaches at concept level.
 Table 2.2: High-side and isolated driver approaches at concept level
 
 | Approach | Main strength | Main limitation or caution | Typical fit |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Low-side non-isolated driver | Simple reference, low cost, easy layout | Only works when source/emitter stays near local ground | Buck converters, low-side switches, grounded stages |
 | Bootstrap high-side driver | Compact and widely used in bridge circuits | Floating supply must be refreshed; not ideal for every duty condition | Half-bridges, inverters, synchronous legs |
 | Opto-coupler isolated drive | Clear galvanic isolation, good noise separation | Often still needs isolated secondary supply | Mains-referenced stages, industrial inverters, battery chargers |
@@ -217,7 +217,7 @@ Table 2.3 translates the datasheet language into design language.
 Table 2.3: Interpreting the UCC21520 datasheet
 
 | Datasheet statement | Plain-language meaning | Design importance |
-|---|---|---|
+| --- | --- | --- |
 | Dual-channel isolated gate driver | Two real gate-drive outputs sit behind an isolation barrier | Suitable for one half-bridge leg or two isolated switches |
 | 4 A source, 6 A sink peak | Strong push-pull output stage | Can move gate charge quickly and hold OFF state firmly |
 | 5.7 kV RMS reinforced isolation | High-grade barrier inside the package | Useful where controller and power stage must be safely separated |
