@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import argparse
-import math
+import importlib.util
 import os
 import shutil
 import subprocess
 import tempfile
 from pathlib import Path
+from types import ModuleType
 
 os.environ.setdefault("MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "matplotlib"))
 
@@ -21,12 +22,11 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parent.parent
-FEEE_IMAGE_DIR = (
+FEEE_SCRIPT = (
     ROOT
     / "Fundamentals of Electrical and Electronics Engineering"
-    / "Textbook"
-    / "images"
-    / "unit-3"
+    / "ImagenScript"
+    / "generate_feee_figures.py"
 )
 POWER_IMAGE_DIR = ROOT / "Power Electronics" / "images" / "module-4" / "chapter-1"
 
@@ -84,125 +84,23 @@ def style_axis(ax: plt.Axes) -> None:
     ax.set_axisbelow(True)
 
 
-def draw_phasor_axis(ax: plt.Axes, title: str) -> None:
-    ax.axhline(0.0, color="0.75", linewidth=0.8)
-    ax.axvline(0.0, color="0.75", linewidth=0.8)
-    ax.set_xlim(-0.2, 1.35)
-    ax.set_ylim(-0.9, 1.15)
-    ax.set_aspect("equal", adjustable="box")
-    ax.set_xticks([])
-    ax.set_yticks([])
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    ax.set_title(title, fontsize=12, pad=8)
-
-
-def add_phasor(ax: plt.Axes, angle_rad: float, label: str, color: str) -> None:
-    x = math.cos(angle_rad)
-    y = math.sin(angle_rad)
-    ax.annotate(
-        "",
-        xy=(x, y),
-        xytext=(0.0, 0.0),
-        arrowprops=dict(arrowstyle="->", lw=2.2, color=color),
-    )
-    ax.text(x + 0.04, y + 0.04, label, color=color, fontsize=11, fontweight="bold")
-
-
 def save_svg(fig: plt.Figure, output_svg: Path) -> None:
     ensure_parent(output_svg)
     fig.savefig(output_svg, format="svg", bbox_inches="tight")
     plt.close(fig)
 
 
-def generate_feee_circuits() -> Path:
-    output = FEEE_IMAGE_DIR / "figure-3-4a-pure-rlc-reference-circuits.svg"
-    tex_body = r"""
-\begin{circuitikz}[american]
-\draw
-  (0,0) node[below]{(a)} to[sV, l=$v_s(t)$] (0,3)
-  to[R, l=$R$] (3,3) -- (3,0) -- (0,0);
-\draw (1.5,-0.9) node{Pure resistor};
+def load_feee_generator() -> ModuleType:
+    if not FEEE_SCRIPT.exists():
+        raise SystemExit(f"Missing FEEE figure generator: {FEEE_SCRIPT}")
 
-\draw
-  (5,0) node[below]{(b)} to[sV, l=$v_s(t)$] (5,3)
-  to[L, l=$L$] (8,3) -- (8,0) -- (5,0);
-\draw (6.5,-0.9) node{Pure inductor};
+    spec = importlib.util.spec_from_file_location("feee_figure_generator", FEEE_SCRIPT)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"Unable to load FEEE figure generator: {FEEE_SCRIPT}")
 
-\draw
-  (10,0) node[below]{(c)} to[sV, l=$v_s(t)$] (10,3)
-  to[C, l=$C$] (13,3) -- (13,0) -- (10,0);
-\draw (11.5,-0.9) node{Pure capacitor};
-\end{circuitikz}
-"""
-    render_circuitikz_svg(tex_body, output)
-    return output
-
-
-def generate_feee_waveforms() -> Path:
-    output = FEEE_IMAGE_DIR / "figure-3-4b-pure-rlc-waveforms-and-phasors.svg"
-    theta = np.linspace(0.0, 2.0 * np.pi, 1000)
-    voltage = np.sin(theta)
-    current_r = np.sin(theta)
-    current_l = np.sin(theta - np.pi / 2.0)
-    current_c = np.sin(theta + np.pi / 2.0)
-
-    fig, axes = plt.subplots(2, 3, figsize=(13.5, 7.5), constrained_layout=True)
-    waveform_axes = axes[0]
-    phasor_axes = axes[1]
-
-    configs = [
-        ("Pure R", current_r, "In phase", 0.0),
-        ("Pure L", current_l, "Current lags by 90°", -np.pi / 2.0),
-        ("Pure C", current_c, "Current leads by 90°", np.pi / 2.0),
-    ]
-
-    for ax, (title, current, phase_text, phase) in zip(waveform_axes, configs):
-        ax.plot(theta, voltage, label="v(t)", linewidth=2.2, color="#1f3a5f")
-        ax.plot(theta, current, label="i(t)", linewidth=2.2, color="#c25b20")
-        style_axis(ax)
-        ax.set_title(title, fontsize=12, pad=8)
-        ax.set_xlim(0.0, 2.0 * np.pi)
-        ax.set_ylim(-1.25, 1.25)
-        ax.set_xticks([0, np.pi / 2, np.pi, 3 * np.pi / 2, 2 * np.pi])
-        ax.set_xticklabels(["0", r"$\pi/2$", r"$\pi$", r"$3\pi/2$", r"$2\pi$"])
-        ax.set_xlabel(r"Electrical angle $\omega t$")
-        ax.set_ylabel("Normalized amplitude")
-        ax.text(0.04, 0.9, phase_text, transform=ax.transAxes, fontsize=10)
-        if title == "Pure L":
-            ax.annotate(
-                "",
-                xy=(np.pi / 2, 1.0),
-                xytext=(np.pi, 1.0),
-                arrowprops=dict(arrowstyle="<->", color="0.35", lw=1.0),
-            )
-            ax.text(0.44, 0.82, r"$90^\circ$", transform=ax.transAxes, color="0.35")
-        if title == "Pure C":
-            ax.annotate(
-                "",
-                xy=(0.0, 1.0),
-                xytext=(np.pi / 2, 1.0),
-                arrowprops=dict(arrowstyle="<->", color="0.35", lw=1.0),
-            )
-            ax.text(0.23, 0.82, r"$90^\circ$", transform=ax.transAxes, color="0.35")
-
-    waveform_axes[0].legend(loc="lower left", frameon=False)
-
-    for ax, (title, _, _, phase) in zip(phasor_axes, configs):
-        draw_phasor_axis(ax, f"{title} phasors")
-        if phase == 0:
-            add_phasor(ax, 0.0, "V, I", "#1f3a5f")
-            ax.text(0.52, 0.14, r"$I$ in phase with $V$", fontsize=10, color="0.25")
-        else:
-            add_phasor(ax, 0.0, "V", "#1f3a5f")
-            add_phasor(ax, phase, "I", "#c25b20")
-        if phase > 0:
-            ax.text(0.5, 0.7, r"$I$ leads $V$", fontsize=10, color="0.25")
-        elif phase < 0:
-            ax.text(0.45, -0.7, r"$I$ lags $V$", fontsize=10, color="0.25")
-
-    save_svg(fig, output)
-    return output
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def generate_power_circuit() -> Path:
@@ -337,9 +235,9 @@ def generate_power_waveforms() -> Path:
 
 
 def generate_all() -> list[Path]:
+    feee_module = load_feee_generator()
     outputs = [
-        generate_feee_circuits(),
-        generate_feee_waveforms(),
+        *feee_module.generate_all(),
         generate_power_circuit(),
         generate_power_waveforms(),
     ]
@@ -364,7 +262,7 @@ def main() -> None:
     if args.target == "all":
         outputs = generate_all()
     elif args.target == "feee":
-        outputs = [generate_feee_circuits(), generate_feee_waveforms()]
+        outputs = load_feee_generator().generate_all()
     else:
         outputs = [generate_power_circuit(), generate_power_waveforms()]
 
