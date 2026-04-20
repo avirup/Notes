@@ -2,23 +2,16 @@
 
 ## Chapter opening
 
-In Chapters 4.1 to 4.3, we built a clear picture of DC-DC conversion. We learned how a chopper controls average voltage by switching, how buck and boost converters move power in one preferred direction, and why isolation is sometimes needed. Those chapters answered an important question: how do we convert one DC level to another efficiently? This chapter asks the next question: what if energy must move in **both** directions?
+Previous chapters introduced DC-DC converters that regulate one voltage level from another and usually transfer power in one preferred direction. Many practical systems, however, contain storage elements or coupled DC buses that must exchange energy in both directions. A battery is charged in one interval and discharged in another. A storage unit beside a renewable source absorbs surplus energy and later returns it to the bus. In an electric vehicle, energy flows from the battery during acceleration and back toward the battery during regenerative braking [DOE FEMP, *Electric Vehicle Technology Overview*].
 
-That is not a rare question. A battery is not only charged; later it discharges. A storage system beside a solar plant absorbs surplus energy in one interval and returns it in another. An electric vehicle draws energy from the battery while accelerating, but during regenerative braking some of the vehicle's kinetic energy is sent back toward the battery [DOE FEMP, *Electric Vehicle Technology Overview*]. A supercapacitor backup unit charges while normal power is present and discharges when the bus sags [Analog Devices, *Bidirectional DC/DC Regulator and Supercapacitor Charger*].
-
-A converter that can support this reversible energy movement is called a **bidirectional DC-DC converter**. The word bidirectional refers to the direction of average power flow, not only the direction of current in one wire. This distinction matters. The same hardware may act like a charger in one operating interval and like a source in another. In other words, the converter is not just stepping voltage up or down; it is also deciding which side presently supplies energy and which side presently receives it [Mohan, Undeland, Robbins, *Power Electronics: Converters, Applications, and Design*, 3e], [NPTEL, *Multi Quadrant DC-DC Converters I*].
-
-This chapter keeps the discussion at the conceptual level asked for in the syllabus. We will first understand why bidirectional power flow is needed in battery charging, battery discharging, and EV regenerative braking. Then we will study the **bidirectional buck-boost converter**, which is one of the most widely used non-isolated bidirectional topologies. The goal is not detailed controller design. The goal is to become comfortable with the physical picture: two DC ports, one inductor, active switches, reversible current, and controllable power flow.
+A **bidirectional DC-DC converter** is designed for this reversible average power flow. The same hardware may act as a charger in one operating condition and as a source interface in another. This chapter introduces the need for bidirectional power flow and then develops the conceptual operation of the **bidirectional buck-boost converter**, a widely used non-isolated topology for battery and storage interfaces [Mohan, Undeland, Robbins, *Power Electronics: Converters, Applications, and Design*, 3e], [NPTEL, *Multi Quadrant DC-DC Converters I*].
 
 ## Prerequisites check
 
-- You should remember the duty-cycle idea from Chapter 4.1 and the basic buck and boost relations from Chapter 4.2.
-- You should remember the quadrant classification of choppers from Chapter 4.1, especially the link between voltage sign, current sign, and power-flow direction.
-- You should be comfortable with the idea that an inductor resists sudden change of current and therefore stores energy temporarily in its magnetic field.
-- You should know that practical battery systems involve both charging and discharging, even if the detailed battery chemistry is outside our scope here.
-- You should remember that ideal converter equations are first models. Real converters have conduction loss, switching loss, current limits, and control constraints.
-
-If the quadrant idea from Chapter 4.1 feels distant, it is worth refreshing that section before continuing. Bidirectional conversion becomes much easier once we reconnect it to voltage, current, and power signs.
+- Recall the duty-cycle concept from Chapter 4.1 and the basic buck and boost relations from Chapter 4.2.
+- Recall the quadrant classification of choppers, especially the relation between voltage sign, current sign, and power flow.
+- Recall that an inductor stores energy temporarily and resists sudden change of current.
+- Treat ideal converter equations as first models. Real circuits include losses, current limits, and control constraints.
 
 ## Core content
 
@@ -26,47 +19,36 @@ If the quadrant idea from Chapter 4.1 feels distant, it is worth refreshing that
 
 #### Why one-way conversion is sometimes not enough
 
-Suppose we have a solar-powered DC bus at $48 \text{ V}$ and a battery bank at roughly $24 \text{ V}$. In bright sunlight, excess PV power may be available on the bus and we may want to charge the battery. A few hours later, when clouds arrive or evening begins, the direction may reverse. The battery may now need to support the bus and the connected load.
+Consider a $48 \text{ V}$ DC bus connected to a $24 \text{ V}$ battery bank. When excess solar power is available, the bus may charge the battery. Later, when solar power falls or the load rises, the battery may support the same bus.
 
-If we use a strictly unidirectional converter, it can perform only one of those tasks:
+A strictly unidirectional converter can perform only one of these functions:
 
-- bus to battery charging, or
-- battery to bus discharging.
+- bus-to-battery charging, or
+- battery-to-bus discharging.
 
-To perform both, we would need either two separate converters or one converter able to reverse power flow. The second approach is often more elegant and can reduce duplication of magnetic parts, switches, filters, and control hardware [Rashid, *Power Electronics: Circuits, Devices and Applications*, 4e], [Mohan, Undeland, Robbins, *Power Electronics: Converters, Applications, and Design*, 3e].
-
-This is the central need for bidirectional conversion. Many energy systems are not sources only and not loads only. They alternate between the two roles.
+Supporting both functions therefore requires either two separate converters or one converter whose average power flow can reverse. The second approach is often more economical in components and more coherent in control, especially when the two operating modes occur regularly [Rashid, *Power Electronics: Circuits, Devices and Applications*, 4e], [Mohan, Undeland, Robbins, *Power Electronics: Converters, Applications, and Design*, 3e].
 
 #### What "bidirectional" really means
 
-The safest beginner definition is this:
-
-**A bidirectional DC-DC converter is a converter whose average power can flow from Port A to Port B or from Port B to Port A, according to the switching command and system condition.**
-
-To unpack that definition, let us start with instantaneous power:
+For a converter port, instantaneous power is
 
 $$\boxed{p(t) = v(t)i(t)} \quad \text{(16.1)}$$
 
-where $v(t)$ is instantaneous voltage and $i(t)$ is instantaneous current at the port being observed.
+where $v(t)$ is the instantaneous voltage and $i(t)$ is the instantaneous current at that port.
 
-For DC ports, we are often interested in average power over a switching cycle or over a longer interval:
+For DC ports, the average power over a switching interval or over a longer interval is often approximated by
 
 $$\boxed{P \approx VI} \quad \text{(16.2)}$$
 
-where $V$ and $I$ are average DC voltage and average DC current at that port.
+where $V$ and $I$ are average port voltage and average port current.
 
-Now imagine two positive-voltage DC ports:
+A bidirectional DC-DC converter is therefore a converter whose **average power** can flow from Port A to Port B or from Port B to Port A, according to switching commands and system conditions.
 
-- a higher-voltage bus at $V_H$
-- a lower-voltage battery side at $V_L$
-
-Both voltages may remain positive with respect to a common reference. Yet power can still reverse, because current can reverse at the controlled inductor and switch network. That is why bidirectional conversion is closely related to the quadrant ideas from Chapter 4.1 [NPTEL, *Multi Quadrant DC-DC Converters I*].
-
-In many practical bidirectional battery interfaces, voltage polarity stays the same but current direction changes. So the beginner should not equate "bidirectional" with "negative voltage." Very often it simply means the same two positive DC buses can exchange power in either direction.
+In many practical battery interfaces, both port voltages remain positive with respect to a common reference. Power reverses because current reverses through the controlled switch-inductor network. Bidirectional operation should therefore not be identified with reversal of voltage polarity. In many systems it simply means that the same two positive-voltage DC ports can exchange energy in either direction [NPTEL, *Multi Quadrant DC-DC Converters I*].
 
 #### A first numerical picture
 
-Let a $48 \text{ V}$ DC bus exchange power with a $24 \text{ V}$ battery. Assume, for a first ideal estimate, that the converter is lossless.
+Let a $48 \text{ V}$ bus exchange power with a $24 \text{ V}$ battery. Assume, for a first estimate, that the converter is lossless.
 
 If the battery is charging at
 
@@ -76,50 +58,39 @@ then the $48 \text{ V}$ bus must supply approximately
 
 $$I_H = \frac{240}{48} = 5 \text{ A}.$$
 
-So in charging mode:
+In charging mode:
 
-- battery side: $24 \text{ V}, 10 \text{ A}$ into battery
-- bus side: $48 \text{ V}, 5 \text{ A}$ from bus
+- battery side: $24 \text{ V}, 10 \text{ A}$ into the battery
+- bus side: $48 \text{ V}, 5 \text{ A}$ from the bus
 
-Now reverse the situation. Suppose the battery supports the same bus with the same ideal power level of $240 \text{ W}$. Then approximately:
+Now reverse the power flow while keeping the same ideal power level of $240 \text{ W}$. The bus still receives
 
-$$I_H = \frac{240}{48} = 5 \text{ A}$$
+$$I_H = \frac{240}{48} = 5 \text{ A},$$
 
-at the bus side, while the battery side provides
+while the battery side provides
 
 $$I_L = \frac{240}{24} = 10 \text{ A}.$$
 
-The voltage levels are the same as before, but the power direction has reversed.
+The voltage levels are unchanged, but the direction of power has reversed. This is the essential operating idea of a bidirectional converter.
 
-This example is simple, but it captures the heart of bidirectional conversion. The same electrical interface may behave as a charger at one time and as a source at another.
+#### Batteries and reversible operation
 
-#### Why batteries especially need bidirectional converters
+A battery naturally operates in two energy directions. During **charging**, electrical energy is absorbed and stored chemically. During **discharging**, stored chemical energy returns as electrical output [Abu-Rub, Malinowski, Al-Haddad, *Power Electronics for Renewable Energy Systems, Transportation and Industrial Applications*].
 
-A battery is almost the textbook example of a bidirectional energy device.
+The converter connected to a battery must therefore do more than regulate a voltage ratio. It must also manage current direction, current magnitude, and mode transition. In charging mode, the converter may have to enforce current limits and voltage limits required by the battery. In discharge mode, it may instead regulate a DC bus, support a load, or share power with other sources [TI, BQ25756 product page].
 
-During **charging**, electrical energy is absorbed and stored chemically. During **discharging**, stored chemical energy returns as electrical output. A practical battery system therefore lives naturally in two energy directions [Abu-Rub, Malinowski, Al-Haddad, *Power Electronics for Renewable Energy Systems, Transportation and Industrial Applications*].
+This pattern appears across many systems:
 
-This appears in many systems:
-
-- a rooftop PV-plus-battery inverter charges the battery in daytime and discharges it after sunset
-- a UPS battery charges while mains power is healthy and discharges during outage
-- a DC microgrid battery stabilizes the common bus by alternately absorbing and supplying power
-- a portable power station charges from an adaptor or solar input and later powers external loads
-
-The converter between the battery and the rest of the system must therefore do more than regulate one voltage. It must also supervise current direction, current limit, and mode transition.
+- a PV-plus-battery installation charges the battery in daytime and discharges it after sunset
+- a UPS battery charges during normal supply and discharges during outage
+- a DC microgrid battery alternately absorbs and supplies power to stabilize a common bus
+- a portable power station charges from an adaptor or solar source and later powers external loads
 
 #### Connection to earlier quadrant classification
 
-In Chapter 4.1, we classified choppers by the quadrants in which output voltage and output current can exist. That language is useful again here.
+The quadrant classification introduced in Chapter 4.1 is useful here. In many battery interfaces, the two port voltages remain positive, but current and power may reverse. The chapter can therefore be read as an application of the same sign conventions already used for multi-quadrant chopper operation [Singh and Khanchandani, *Power Electronics*], [NPTEL, *Multi Quadrant DC-DC Converters I*].
 
-For a battery interface in which both bus voltages remain positive, the most natural conceptual picture is:
-
-- positive voltage on both sides
-- current and therefore power may reverse
-
-This is similar in spirit to two-quadrant operation, although in a real two-port converter we often prefer to speak of "power from the bus to the battery" or "power from the battery to the bus" rather than only "output current positive or negative." The older quadrant picture and the newer two-port picture are describing the same underlying reality from different angles [Singh and Khanchandani, *Power Electronics*], [NPTEL, *Multi Quadrant DC-DC Converters I*].
-
-Table 16.1 summarizes the contrast between one-way and two-way conversion.
+Table 16.1 summarizes the distinction between one-way and two-way conversion.
 
 Table 16.1: Unidirectional and bidirectional DC-DC conversion at a glance
 
@@ -131,126 +102,77 @@ Table 16.1: Unidirectional and bidirectional DC-DC conversion at a glance
 | Control task | Regulate voltage or current in one main direction | Regulate voltage or current while also managing flow direction |
 | Typical example | Ordinary buck regulator from 48 V to 12 V | 48 V to 12 V dual-battery interface, battery-to-bus storage stage |
 
-#### EV regenerative braking: a very important example
+#### EV regenerative braking
 
-The need for bidirectional flow becomes even clearer in an electric vehicle.
+Electric vehicles provide a clear example of reversible power flow. During acceleration, the battery supplies electrical energy to the traction system. During **regenerative braking**, the machine is driven mechanically by the moving vehicle and acts as a generator. Part of the vehicle's kinetic energy is then returned electrically toward the battery [DOE FEMP, *Electric Vehicle Technology Overview*].
 
-When the EV accelerates, the battery provides electrical energy to the motor drive. That is the familiar forward-power case. But during **regenerative braking**, the machine is driven mechanically by the moving vehicle and acts as a generator. The U.S. Department of Energy explains regenerative braking in simple terms: the electric motor operates in reverse, applies a braking force through electromagnetism, and recaptures some of the vehicle's kinetic energy by charging the battery [DOE FEMP, *Electric Vehicle Technology Overview*].
-
-That sentence is worth unpacking carefully.
-
-During acceleration:
-
-- battery delivers energy
-- converter and inverter send energy toward the machine
-- mechanical output power appears at the wheels
-
-During regenerative braking:
-
-- wheels drive the machine
-- machine returns electrical energy
-- electrical power flows back toward the battery
-
-The full traction system usually includes an inverter and machine, and in some architectures also a separate DC-DC stage for storage or bus coupling. But the principle is the same: power electronics must allow energy to reverse direction in a controlled way.
-
-This is one of the most important mental shifts in power electronics. A converter is not always "a supply feeding a passive load." In transportation and storage systems, the load itself may become a source for part of the time.
-
-#### Battery charging versus battery discharging
-
-It also helps to distinguish the two battery-side operating objectives.
-
-During charging, the converter is usually expected to:
-
-- limit current to a safe value
-- raise or lower voltage as required by the system
-- eventually respect a voltage limit as the battery approaches full charge
-
-During discharging, the converter is usually expected to:
-
-- deliver current to a DC bus or load
-- protect the battery from excessive discharge current
-- stop operation before the battery reaches an unsafe low-voltage condition
-
-So bidirectional conversion is not just "same circuit, reverse arrows." The control objective often changes with direction. In one direction we may be following battery-charging rules. In the other we may be supporting a bus-voltage regulation or load-sharing objective [TI, BQ25756 product page].
+The full traction system includes an inverter and machine, and some architectures also include a separate DC-DC stage for storage or bus coupling. The underlying principle remains the same: power electronics must permit controlled reversal of power flow. Regenerative braking does not recover all of the vehicle's kinetic energy; machine losses, converter losses, battery acceptance limits, and braking conditions all reduce the recovered fraction [DOE FEMP, *Electric Vehicle Technology Overview*].
 
 #### Another useful application: supercapacitor backup
 
-Batteries are not the only reason bidirectional converters exist. Supercapacitors also use them. Analog Devices describes the LTC3110 as a bidirectional buck-boost regulator that charges a supercapacitor when a bus voltage is present and discharges the supercapacitor into the load when the bus fails [Analog Devices, *Bidirectional DC/DC Regulator and Supercapacitor Charger*].
+The same principle appears in supercapacitor backup systems. Analog Devices describes the LTC3110 as a bidirectional buck-boost regulator that charges a supercapacitor when the bus is present and discharges the supercapacitor into the load when the bus fails [Analog Devices, *Bidirectional DC/DC Regulator and Supercapacitor Charger*].
 
-This is a beautiful example because it shows the same physical principle in a smaller system:
+The storage element is different, but the operating logic is the same:
 
-- normal condition: energy moves from bus to storage element
-- backup condition: energy moves from storage element to bus
-
-The storage element changes, but the need for reversible power flow remains.
+- normal condition: energy moves from the bus to the storage element
+- backup condition: energy moves from the storage element to the bus
 
 #### Common misconceptions
 
-One common misconception is that a bidirectional converter must reverse the polarity of the output voltage. That is not generally true. Many practical bidirectional converters connect two positive DC buses and mainly reverse current and power direction.
+One misconception is that a bidirectional converter must reverse output-voltage polarity. In many practical systems, both DC-port voltages remain positive while current and average power reverse.
 
-Another misconception is that a bidirectional converter transfers power in both directions at the same instant. In normal operation it does not. It operates in one commanded direction at a given time, though it may switch from one direction to the other when system conditions change.
+Another misconception is that bidirectional conversion means simultaneous power transfer in both directions. In normal operation, the converter is commanded to transfer net average power in one direction at a time, although direction may change when system conditions change.
 
-A third misconception is that regenerative braking means all the vehicle's kinetic energy returns to the battery. In reality only part of it is recovered. Mechanical limits, battery acceptance limits, machine losses, converter losses, and braking conditions all matter [DOE FEMP, *Electric Vehicle Technology Overview*].
-
-Renewable-energy relevance: bidirectional power flow is central to battery energy storage, PV-plus-storage systems, hybrid DC microgrids, EV charging and regenerative operation, and backup-power systems where storage alternately absorbs and supplies energy [Abu-Rub, Malinowski, Al-Haddad, *Power Electronics for Renewable Energy Systems, Transportation and Industrial Applications*], [DOE, *OE Sets the Stage for Energy Storage Advances*].
+A third misconception is that battery charging and battery discharging are the same control problem with arrows reversed. The same hardware may be used in both modes, but the control objective often changes with direction.
 
 ### 4.4.2 Bidirectional buck-boost converter - topology and operation (conceptual)
 
 #### The basic physical idea
 
-Among non-isolated bidirectional converters, one of the most widely used practical arrangements is the **bidirectional buck-boost converter**. In modern hardware, this is often implemented as a **four-switch synchronous buck-boost converter** using one inductor between two actively switched half-bridges [TI, BQ25756 product page], [Analog Devices, LTC3871 product brief].
+Among non-isolated bidirectional converters, one widely used arrangement is the **bidirectional buck-boost converter**. In modern implementations, this often appears as a **four-switch synchronous buck-boost converter** with one inductor between two actively switched half-bridges [TI, BQ25756 product page], [Analog Devices, LTC3871 product brief].
 
-The beginner-friendly picture is as follows:
+Its conceptual structure is simple:
 
-- one side is the higher-voltage port, called $V_H$
-- the other side is the lower-voltage port, called $V_L$
-- an inductor sits between switching networks connected to the two ports
-- the switches are actively controlled so that inductor current can be directed as needed
+- one port is the higher-voltage side, $V_H$
+- the other port is the lower-voltage side, $V_L$
+- an inductor lies between the switching networks connected to the two ports
+- active switching determines the direction and magnitude of inductor current
 
-Unlike a simple diode-based buck or boost converter, the paths are not fixed by passive diode direction alone. Because both sides use controllable switches, the converter can deliberately support power flow from high to low or from low to high.
+Unlike a diode-based unidirectional buck or boost converter, current paths are not fixed by passive diode direction alone. Because both sides use controllable switches, the same hardware can support power flow from high to low or from low to high.
 
 **Image prompt for Figure 16.1:** Create a clean textbook-style technical illustration of a non-isolated four-switch bidirectional buck-boost converter. Show a high-voltage port labeled $V_H$, a low-voltage battery port labeled $V_L$, two half-bridges made of switches $S_1$-$S_4$, and a single inductor $L$ between the two bridge midpoints. Add an arrow for positive inductor current from the high-voltage side toward the low-voltage side, and a second arrow showing reversible current direction. Mark charging mode as $V_H \rightarrow V_L$ and discharging mode as $V_L \rightarrow V_H$. Use monochrome engineering style with clear component labels.
 
 #### Why active switches make reversal possible
 
-In the basic unidirectional buck converter, a diode automatically provides the freewheeling path. In the basic unidirectional boost converter, a diode automatically blocks reverse discharge of the output capacitor into the source. Those properties are helpful when only one-way power flow is desired.
+In a basic unidirectional buck converter, a diode provides a freewheeling path. In a basic unidirectional boost converter, a diode prevents reverse discharge of the output capacitor into the source. Those features are useful when one-way power transfer is desired.
 
-But the same diode behavior becomes a limitation when we want reverse power transfer. A diode that blocks reverse current in one operating direction also blocks the very reverse energy movement we may now need.
-
-So in a bidirectional converter, passive rectifier paths are commonly replaced by **synchronous switches**, usually MOSFETs. By choosing which devices are turned ON and when, the controller can create:
-
-- a buck-like transfer from the high side to the low side, or
-- a boost-like transfer from the low side to the high side.
-
-That is why a bidirectional buck-boost converter is best understood not as an entirely new mystery circuit, but as an intelligently reversible combination of familiar buck and boost actions.
+For bidirectional transfer, however, the same diode behavior becomes restrictive. A diode that blocks reverse current in one operating direction also blocks the reverse energy transfer required in the other direction. Bidirectional converters therefore replace passive one-way rectifier paths with **synchronous switches**, usually MOSFETs. By selecting which devices conduct and when, the controller can create a buck-like transfer from the high side to the low side or a boost-like transfer from the low side to the high side.
 
 #### Mode 1: charging the lower-voltage battery from a higher-voltage bus
 
-Let us begin with the case in which a higher-voltage DC bus charges a lower-voltage battery. This is the **buck direction**.
+When a higher-voltage DC bus charges a lower-voltage battery, the converter operates in the **buck direction**.
 
-Imagine a PV DC bus around $48 \text{ V}$ and a battery around $24 \text{ V}$. Since energy is moving from a higher voltage to a lower voltage, the converter behaves conceptually like a buck converter.
-
-The switching sequence can be understood in two broad intervals.
+Consider a $48 \text{ V}$ bus charging a $24 \text{ V}$ battery. In broad terms, operation may be described in two intervals.
 
 During the first interval:
 
-- the switch network connects the high-voltage side to the inductor
+- the switching network connects the high-voltage side to the inductor
 - the inductor sees a positive voltage
 - inductor current rises
-- energy is being taken from the high-voltage bus
+- energy is taken from the high-voltage bus
 
 During the second interval:
 
-- the high-side drive is reduced or commutated
-- current continues through a synchronous freewheeling path toward the low-voltage side
-- the inductor current falls more gently
+- the switching state changes to a synchronous freewheeling path
+- inductor current continues toward the low-voltage side
+- the inductor current falls more gradually
 - energy continues into the battery
 
-At the introductory level, this is enough to understand the direction of energy movement. The inductor smooths current. The switching action meters how much average power reaches the battery.
+The inductor smooths current, and the switching pattern determines the average power delivered to the battery.
 
 #### Ideal buck-direction voltage relation
 
-If we model this direction with the same ideal logic used earlier for the ordinary buck converter, then the lower-voltage side approximately follows
+In the same ideal form used for the ordinary buck converter, the charging direction follows approximately
 
 $$\boxed{V_L = D\,V_H} \quad \text{(16.3)}$$
 
@@ -260,7 +182,7 @@ where:
 - $V_L$ is the lower-voltage port
 - $D$ is the duty cycle referred to the buck-direction switching interval
 
-This is not a full multi-mode controller equation for every practical implementation. It is the first-order conceptual relation that helps us see why the charging direction is called "buck mode."
+This is a first-order conceptual relation. Practical implementations include multiple switching states, nonideal drops, current limits, and control constraints.
 
 #### A numerical example in charging mode
 
@@ -268,43 +190,36 @@ Suppose a storage converter must charge a $24 \text{ V}$ battery from a $48 \tex
 
 $$D = \frac{V_L}{V_H} = \frac{24}{48} = 0.5.$$
 
-So the converter operates with a duty ratio of about $50\%$ in this simple first estimate.
-
-If the battery is being charged at $8 \text{ A}$, then the battery-side power is approximately
+If the battery is charged at $8 \text{ A}$, then the battery-side power is approximately
 
 $$P_L = 24 \times 8 = 192 \text{ W}.$$
 
-Ignoring losses, the high-side bus current is then about
+Ignoring losses, the high-side current is then
 
 $$I_H = \frac{192}{48} = 4 \text{ A}.$$
 
-This gives a very important practical intuition:
-
-- lower-voltage side usually carries higher current
-- higher-voltage side usually carries lower current
-
-for the same power level.
+The lower-voltage side therefore carries the larger current for the same power level.
 
 #### Mode 2: supporting the higher-voltage bus from the lower-voltage battery
 
-Now reverse the situation. The sun is weak, or the main source is absent, and the battery must support the higher-voltage bus. Energy now moves from the low-voltage port toward the high-voltage port. Conceptually, the converter behaves like a **boost converter**.
+When the battery supports the higher-voltage bus, power flows from the low-voltage port toward the high-voltage port. The converter now behaves conceptually as a **boost converter**.
 
-Again we can read the operation in two broad intervals.
+Again the operation may be viewed in two intervals.
 
 During the first interval:
 
-- the low-voltage side is connected so that the battery charges the inductor
+- the low-voltage side charges the inductor
 - inductor current rises
-- energy is stored magnetically
+- energy is stored in the magnetic field
 
 During the second interval:
 
 - the switching state changes
 - the inductor forces its current to continue
-- the inductor voltage adds to the battery-side voltage in the required way
+- the inductor voltage adds appropriately to the battery-side voltage
 - energy is delivered to the higher-voltage bus
 
-This is the same physical idea we learned in Chapter 4.2 for the ordinary boost converter, but now the hardware is designed so that the direction can later reverse again when needed.
+The operating idea is the same as in an ordinary boost converter, but the hardware is arranged so that the direction can later reverse again when required.
 
 #### Ideal boost-direction voltage relation
 
@@ -312,13 +227,13 @@ In the ideal conceptual model for the reverse direction,
 
 $$\boxed{V_H = \frac{V_L}{1-D}} \quad \text{(16.4)}$$
 
-where $D$ is now interpreted with respect to the boost-direction switching interval.
+where $D$ is interpreted with respect to the boost-direction switching interval.
 
-Equation (16.4) is the familiar boost idea in new clothing. It tells us that when the lower-voltage battery is supporting the higher-voltage bus, the converter can raise the bus voltage above the battery voltage by controlled switching.
+Equation (16.4) shows why the same converter can raise the bus voltage above the battery voltage when the battery is the source side.
 
 #### A numerical example in discharging mode
 
-Suppose a $24 \text{ V}$ battery must support a $48 \text{ V}$ bus in a backup interval. Using Equation (16.4),
+Suppose a $24 \text{ V}$ battery must support a $48 \text{ V}$ bus during a backup interval. Using Equation (16.4),
 
 $$48 = \frac{24}{1-D}.$$
 
@@ -338,21 +253,15 @@ at the high-voltage side, while the battery must supply approximately
 
 $$I_L = \frac{240}{24} = 10 \text{ A}.$$
 
-So in the reverse direction, the lower-voltage battery side again carries the larger current. This is one reason conductor size, inductor current rating, switch current rating, and thermal design are so important on the lower-voltage side.
+Once again, the lower-voltage side carries the larger current. This is a major design consideration for conductors, inductor current rating, switch current rating, sensing, and thermal performance.
 
-#### Ideal power balance and what it teaches
+#### Ideal power balance
 
-For a lossless converter, the input power equals the output power. So as a first approximation,
+For a lossless converter, input power equals output power. As a first approximation,
 
 $$\boxed{V_H I_H \approx V_L I_L} \quad \text{(16.5)}$$
 
-This relation is useful even when we are not yet doing full design. It immediately tells us that:
-
-- stepping voltage down usually increases current on the lower-voltage side
-- stepping voltage up usually still demands substantial current from the lower-voltage side
-- the lower-voltage side often sees the highest currents and therefore significant stress
-
-This is one of the reasons bidirectional battery interfaces require careful protection and current sensing [Analog Devices, LTC3871 product brief], [TI, BQ25756 product page].
+This relation explains why the lower-voltage side often experiences the highest current stress in both charging and discharging operation.
 
 #### A practical comparison of the two directions
 
@@ -367,64 +276,56 @@ Table 16.2: Bidirectional buck-boost converter viewed in each power-flow directi
 
 #### Why this converter is attractive in real systems
 
-The bidirectional buck-boost converter is attractive because it combines several desirable abilities in one stage:
+The bidirectional buck-boost converter is widely used because one stage can perform several important functions:
 
-- it can charge storage from a bus
-- it can later let the same storage support that bus
-- it can connect ports with unequal voltage levels
-- it can regulate current as well as voltage
-- it can often use one inductor rather than separate buck and boost magnetics
+- charge a storage element from a bus
+- allow the same storage element to support that bus later
+- connect ports with unequal voltage levels
+- regulate current as well as voltage
+- use one inductor rather than separate buck and boost magnetics in many implementations
 
-This is why such converters appear in battery chargers, portable power systems, 48 V/12 V automotive dual-battery systems, supercapacitor backup supplies, and storage interfaces. Analog Devices describes the LTC3871 as a bidirectional buck or boost controller ideal for 48 V/12 V automotive dual-battery systems [Analog Devices, LTC3871 product brief]. TI describes the BQ25756 as a wide-input bidirectional buck-boost battery charge controller with reverse mode and solar MPPT support [TI, BQ25756 product page].
+Such converters appear in battery chargers, portable power systems, 48 V/12 V automotive systems, supercapacitor backup supplies, and renewable-energy storage interfaces. Analog Devices describes the LTC3871 as a bidirectional buck or boost controller for 48 V/12 V dual-battery systems [Analog Devices, LTC3871 product brief]. TI describes the BQ25756 as a wide-input bidirectional buck-boost battery charge controller with reverse mode and solar MPPT support [TI, BQ25756 product page].
 
 #### Control considerations at concept level
 
-The syllabus asks only for topology and operation at concept level, but a few practical control ideas are important enough to mention.
+Although this chapter does not develop full controller design, several practical ideas are essential.
 
-First, the converter normally uses **current control** as an important inner function, because current direction and magnitude must be limited safely in both modes. That connects directly back to Chapter 4.1, where we introduced current-limit control.
+First, **current control** is usually an important inner function, because current direction and current magnitude must be limited in both modes.
 
-Second, because both sides use active switches, the controller must prevent **shoot-through**, which would occur if the two switches in the same half-bridge turned ON together. Small dead times and careful gate-drive sequencing are therefore essential.
+Second, the controller must prevent **shoot-through**. If both switches in the same half-bridge turn ON simultaneously, a destructive short circuit can occur. Dead time and proper gate-drive sequencing are therefore required.
 
-Third, the converter often changes operating objective with mode:
+Third, the control objective changes with operating mode:
 
-- in charging mode it may follow constant-current and then constant-voltage battery-charging behavior
-- in discharge mode it may regulate the DC-bus voltage or a commanded output current
+- in charging mode, the converter may follow constant-current and then constant-voltage charging behavior
+- in discharge mode, it may regulate the DC-bus voltage or a commanded output current
 
-Fourth, direction reversal is not ideally instantaneous in a high-power system. The controller must sense voltages and currents, decide that the operating condition has changed, and transition to the new mode without large current spikes.
-
-These details are part of why practical bidirectional converters are more demanding than ordinary one-way regulators, even though the underlying buck and boost ideas are familiar.
+Fourth, direction reversal must be managed deliberately. The controller has to sense voltages and currents, decide when the operating condition has changed, and transition without large current spikes.
 
 **Image prompt for Figure 16.2:** Create a clean textbook-style technical illustration showing the two conceptual operating modes of a four-switch bidirectional buck-boost converter. In the left panel, label "Charging / Buck Mode" and show energy flowing from a higher-voltage DC bus $V_H$ through the inductor into a lower-voltage battery $V_L$, with a note $V_L = D V_H$. In the right panel, label "Discharging / Boost Mode" and show energy flowing from the lower-voltage battery through the inductor into the higher-voltage DC bus, with a note $V_H = V_L/(1-D)$. Add simplified inductor-current waveforms in both panels, clear current-direction arrows, and monochrome engineering styling.
 
 #### What this topology does not automatically solve
 
-A bidirectional buck-boost converter is powerful, but it is not a magical universal solution.
+A bidirectional buck-boost converter does not automatically provide galvanic isolation. If safety requirements or grounding constraints require isolation, an isolated bidirectional topology is needed instead.
 
-It does not automatically provide galvanic isolation. If safety or grounding requires isolation, a different family such as a bidirectional isolated converter may be needed.
+It also does not make battery charging safe by itself. Proper charge limits, thermal limits, and battery-management logic remain necessary.
 
-It does not automatically make battery charging safe. Proper charge limits, thermal limits, and battery-management logic are still required.
-
-It does not eliminate ripple, EMI, or switching loss. In fact, because power may move in either direction and current can be high on the low-voltage side, layout, filtering, and thermal design remain important.
-
-This is a healthy reminder that topology selection is only one part of converter engineering.
+Finally, it does not eliminate ripple, EMI, switching loss, or thermal stress. These remain important in both directions of operation, especially on the lower-voltage side where current is often highest.
 
 #### Common misconceptions
 
-One misconception is that the bidirectional buck-boost converter is simply a buck converter and a boost converter connected in series with no new control difficulty. The buck and boost ideas are indeed its conceptual foundation, but coordinated switching, reverse-current control, and protection make the practical implementation more demanding.
+One misconception is that the bidirectional buck-boost converter is merely a buck converter and a boost converter placed in series, with no added control difficulty. Buck and boost action are indeed its conceptual foundation, but coordinated switching, reverse-current control, protection, and mode transition make the practical implementation more demanding.
 
-Another misconception is that the same duty-ratio equation can be used carelessly without specifying which side is acting as source and which side is acting as load. In a bidirectional converter, roles change with operating mode, so we must always say clearly which direction we are analyzing.
+Another misconception is that one duty-ratio equation can be used carelessly without specifying the operating direction. The appropriate relation depends on which side is acting as the source and which side is acting as the receiving port.
 
-A third misconception is that if a converter is bidirectional, then every system connected to it must also be bidirectional. That is not true. A bidirectional storage interface may be connected on one side to a bus that mostly behaves as a source and on the other side to a storage element that naturally alternates between absorbing and delivering power.
-
-Renewable-energy relevance: bidirectional buck-boost converters are natural building blocks for battery storage tied to a DC bus, solar-assisted charging systems, backup power units, hybrid storage with supercapacitors, and transport systems that alternate between power delivery and energy recovery [TI, BQ25756 product page], [Analog Devices, *Bidirectional DC/DC Regulator and Supercapacitor Charger*].
+A third misconception is that a bidirectional converter requires both connected systems to behave bidirectionally. In practice, one side may be a bus that usually acts as a source, while the other is a storage element that alternates between absorbing and delivering power.
 
 ## Worked interpretation exercise
 
 ### Reading a real bidirectional buck-boost product page
 
-For this chapter, a very suitable real artifact is the [TI BQ25756 product page](https://www.ti.com/product/BQ25756), because it describes the device explicitly as a **70-V bidirectional buck-boost charge controller with MPPT** [TI, BQ25756 product page].
+The [TI BQ25756 product page](https://www.ti.com/product/BQ25756) is a useful industrial example because it describes the device explicitly as a **70-V bidirectional buck-boost charge controller with MPPT** [TI, BQ25756 product page].
 
-The product page lists several details that are very informative at chapter level:
+Several product-page statements connect directly to the chapter concepts:
 
 - wide input voltage operating range: $4.2 \text{ V}$ to $70 \text{ V}$
 - wide battery voltage operating range: up to $70 \text{ V}$
@@ -434,20 +335,9 @@ The product page lists several details that are very informative at chapter leve
 - bidirectional converter operation in reverse mode
 - charge current capability up to $20 \text{ A}$ according to the product summary [TI, BQ25756 product page]
 
-Let us translate these statements into the language of this chapter.
+These statements can be interpreted as follows. The phrase **bidirectional buck-boost** confirms that one hardware stage can exchange energy in either direction while accommodating unequal DC voltages. The phrase **charge controller** indicates that the battery side is managed as a battery rather than as a fixed passive load. The term **synchronous** indicates active MOSFET switching instead of passive one-way diode rectification, which is one of the main practical enablers of reverse power flow.
 
-First, the phrase **bidirectional buck-boost** confirms that one hardware stage can move energy in either direction and can operate with one side above or below the other in voltage. That matches exactly the chapter concept of reversible power flow plus buck-like and boost-like behavior.
-
-Second, the phrase **charge controller** tells us this is not just a fixed voltage regulator. The battery side is being managed as a battery, which means charging current and voltage behavior matter. That is an important real-world distinction.
-
-Third, the product page says **synchronous buck-boost charge controller with NFET drivers**. The word **synchronous** is especially important. It tells us the converter uses actively controlled MOSFETs instead of relying only on passive diode rectification. That is one of the main practical enablers of bidirectional power flow.
-
-Fourth, the page lists **automatic MPPT for solar charging**. This is a powerful clue about application context. TI is telling us that the device is not only a generic two-way battery interface. It is also suitable for a renewable-energy case in which a solar source charges a battery and the control system may need to optimize the solar operating point [TI, BQ25756 product page].
-
-Fifth, the page states **bidirectional converter operation (Reverse Mode)** and explains that in reverse mode the device draws power from the battery and regulates the input terminal voltage with an added constant-current loop for protection [TI, BQ25756 product page]. This is almost a direct industrial translation of the textbook idea:
-
-- forward direction: source charges battery
-- reverse direction: battery supplies the other port
+The MPPT feature also shows that the device is intended for renewable-energy operation, not only for a generic two-way battery interface. The reverse-mode description on the product page is essentially the industrial form of the textbook statement that the battery can supply power back to the other port [TI, BQ25756 product page].
 
 Table 16.3 organizes that interpretation.
 
@@ -462,34 +352,27 @@ Table 16.3: Interpreting the BQ25756 product page using chapter concepts
 | 200 kHz to 600 kHz switching frequency | High-frequency switching is used to control inductor current and reduce component size | Chopper principle from Chapter 4.1 |
 | Up to 20 A charge current | The converter is intended for substantial battery current, not only tiny logic loads | Importance of current control and thermal design |
 
-This exercise is valuable because it shows how classical textbook ideas appear in a modern commercial device. The part does not describe itself as "a Type-C chopper with reversible current," because commercial power-management language is now different. But underneath the modern product language, the same ideas are present: active switching, inductor energy transfer, current limiting, buck mode, boost mode, and reversible average power flow.
-
 ## How this matters in renewable-energy systems
 
-Bidirectional DC-DC conversion is one of the key technologies behind modern storage-rich renewable systems.
+Bidirectional DC-DC conversion is central to storage-rich power systems. In a solar PV plus battery installation, the converter must absorb energy when PV generation exceeds demand and return energy when the source is weak or absent. In a DC-coupled storage system or hybrid microgrid, the same bidirectional interface helps the battery exchange power with a common DC bus [Abu-Rub, Malinowski, Al-Haddad, *Power Electronics for Renewable Energy Systems, Transportation and Industrial Applications*].
 
-In a **solar PV plus battery** installation, the battery interface must absorb energy when PV generation exceeds local demand and later return energy when the PV source is weak or absent. In a **DC-coupled storage system**, that exchange often happens with respect to a common DC bus. In a **battery-backed UPS**, the same principle appears in a different daily pattern: charging during normal supply conditions and discharge during outage. In a **hybrid microgrid**, bidirectional converters help the battery stabilize bus voltage, share power with sources, and respond to load changes [Abu-Rub, Malinowski, Al-Haddad, *Power Electronics for Renewable Energy Systems, Transportation and Industrial Applications*].
-
-The same idea also appears in transportation. EVs and hybrid systems recover part of braking energy through regenerative operation [DOE FEMP, *Electric Vehicle Technology Overview*]. Dual-battery and auxiliary-bus systems use bidirectional buck-boost stages to exchange power between different voltage domains [Analog Devices, LTC3871 product brief]. In Indian and South-Asian contexts, the same converter principles are increasingly relevant in rooftop solar storage, telecom backup power, e-mobility auxiliaries, and small DC microgrid applications where batteries must both store and release energy.
-
-The broader lesson is simple but important: as soon as a storage element becomes part of the system, power electronics usually has to become reversible in some meaningful way. Bidirectional DC-DC converters are one of the cleanest and most practical ways to achieve that reversibility.
+The same principle appears in battery-backed UPS systems, transport applications with regenerative operation, dual-battery automotive systems, and backup supplies using batteries or supercapacitors [DOE FEMP, *Electric Vehicle Technology Overview*], [Analog Devices, LTC3871 product brief]. As soon as a storage element becomes part of the system, power electronics must usually support reversible energy flow in some controlled form.
 
 ## Chapter summary
 
 - A **bidirectional DC-DC converter** can transfer average power in either direction between two DC ports.
-- Bidirectional operation is needed when the same electrical interface must support both charging and discharging.
-- Batteries, supercapacitors, storage-backed DC buses, and regenerative EV systems are major application areas for bidirectional conversion.
+- Bidirectional operation is required when the same electrical interface must support both charging and discharging.
+- Reversal of power flow does not necessarily require reversal of voltage polarity; in many systems both port voltages remain positive while current direction changes.
+- Batteries, supercapacitors, storage-backed DC buses, and EV regenerative systems are major applications of bidirectional conversion.
 - Instantaneous power is $p(t) = v(t)i(t)$, and a useful DC approximation is $P \approx VI$.
-- Reversing power flow does not necessarily mean reversing voltage polarity. In many practical systems, both DC-port voltages stay positive while current direction changes.
-- EV **regenerative braking** recovers some vehicle kinetic energy by operating the motor in reverse and sending power back toward the battery [DOE FEMP, *Electric Vehicle Technology Overview*].
 - A non-isolated **bidirectional buck-boost converter** commonly uses four active switches and one inductor between two DC ports.
 - In the high-side-to-low-side direction, the converter behaves conceptually like a buck converter, with the first-order relation $V_L = D V_H$.
 - In the low-side-to-high-side direction, the converter behaves conceptually like a boost converter, with the first-order relation $V_H = \dfrac{V_L}{1-D}$.
 - Under ideal lossless conditions, a useful power-balance estimate is $V_H I_H \approx V_L I_L$.
-- The lower-voltage side often carries the larger current for a given power level, so current rating and thermal design are especially important there.
+- The lower-voltage side often carries the larger current for a given power level, so current rating, sensing, and thermal design are especially important there.
 - Practical bidirectional converters usually require synchronous switches, current sensing, current limiting, dead-time control, and careful mode transition.
 - A bidirectional buck-boost converter does not automatically provide galvanic isolation; isolated bidirectional topologies are separate converter families.
-- Modern commercial devices such as TI's BQ25756 and ADI's LTC3871 show how bidirectional buck-boost ideas are used in battery charging, solar input management, backup power, and dual-battery systems.
+- Commercial devices such as TI's BQ25756 and ADI's LTC3871 illustrate the practical use of bidirectional buck-boost conversion in battery charging, backup power, solar input management, and dual-battery systems.
 
 ## Further reading
 
