@@ -18,7 +18,10 @@ The **potential difference** between two points is the difference in electric po
 
 Figure 1.1 contrasts the EMF provided by the source with the potential difference across the lamp and shows the two current conventions.
 
-![Figure 1.1: Simple battery-lamp circuit showing source EMF, voltage drop across the lamp, conventional current direction, and electron flow](images/unit-1/figure-1-1-emf-vs-potential-difference.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-1-emf-vs-potential-difference.png" alt="Simple battery-lamp circuit showing source EMF, lamp, conventional current direction, and electron flow" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.1: Simple battery-lamp circuit showing source EMF, lamp, conventional current direction, and electron flow.</figcaption>
+</figure>
 
 ### Electric current
 
@@ -29,10 +32,6 @@ I = \frac{Q}{t} \tag{1.2}
 $$
 
 One ampere equals one coulomb per second. In metals the carriers are electrons; in electrolytes and semiconductors the carriers differ, but for circuit analysis only the net rate of charge transfer matters.
-
-Figure 1.2 shows why current is defined as charge per unit time across a chosen cross-section of a conductor.
-
-![Figure 1.2: Charge Q crossing a reference cross-section in time t, leading to the relation I = Q/t](images/unit-1/figure-1-2-current-charge-flow.svg)
 
 ### Power and energy
 
@@ -92,9 +91,12 @@ This is a first estimate. For AC loads the true average power also depends on th
 
 A final caution on measurement: a voltmeter is connected across a component, an ammeter in series with it. Reversing these connections is the most common cause of blown multimeter fuses in the laboratory.
 
-Figure 1.3 shows the correct multimeter connection and the most common wrong arrangement to avoid.
+Figure 1.2 shows the correct multimeter connection and the most common wrong arrangement to avoid.
 
-![Figure 1.3: Correct multimeter use with ammeter in series and voltmeter in parallel, alongside a crossed-out wrong connection](images/unit-1/figure-1-3-meter-connections.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-3-meter-connections.png" alt="Ammeter connected in series and voltmeter connected in parallel across the resistor" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.2: Ammeter connected in series and voltmeter connected in parallel across the resistor.</figcaption>
+</figure>
 
 ## 1.2 Passive Components
 
@@ -119,10 +121,6 @@ A resistor converts this power almost entirely into heat. Resistors are used for
 #### Fixed and variable resistors
 
 A **fixed resistor** has a single nominal value set at manufacture. A **variable resistor** can be adjusted during use. The common variable types are the **potentiometer**, a three-terminal device used as an adjustable voltage divider; the **rheostat**, a two-terminal device used for current control; and the **preset** or **trimmer**, a small in-circuit device used for factory or field calibration. Fixed resistors dominate in practical circuits; variable resistors are reserved for functions that genuinely need manual adjustment, such as volume, tuning, sensitivity, or calibration.
-
-Figure 1.4 pairs common schematic symbols with the physical parts a beginner is likely to handle in the laboratory.
-
-![Figure 1.4: Compact panel of resistor, potentiometer, capacitor, electrolytic capacitor, and inductor symbols alongside stylized real components](images/unit-1/figure-1-4-symbols-and-components.svg)
 
 #### Ratings and tolerance
 
@@ -154,9 +152,12 @@ $$
 
 The divider relation is one of the most frequently used small formulas in introductory electronics, appearing in transistor biasing, sensor reference networks, and signal conditioning.
 
-Figure 1.5 shows the divider tap and the reference to ground explicitly.
+Figure 1.3 shows the divider tap and the reference to ground explicitly.
 
-![Figure 1.5: Voltage divider circuit with source Vs, resistors R1 and R2, grounded lower node, and output Vout taken from the divider junction](images/unit-1/figure-1-5-voltage-divider.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-5-voltage-divider.png" alt="Voltage divider with output Vout taken from the junction of R1 and R2 with respect to ground" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.3: Voltage divider with output Vout taken from the junction of R1 and R2 with respect to ground.</figcaption>
+</figure>
 
 #### Worked Example 1.3
 
@@ -186,9 +187,12 @@ $$
 W_C = \frac{1}{2} C V^{2} \tag{1.10}
 $$
 
-Figure 1.6 links the field-based picture of capacitance with the polarity marking that matters for electrolytic capacitors.
+Figure 1.4 links the field-based picture of capacitance with the polarity marking that matters for electrolytic capacitors.
 
-![Figure 1.6: Parallel-plate capacitor with dielectric and electric field lines, alongside an electrolytic capacitor polarity sketch](images/unit-1/figure-1-6-capacitor-field-and-polarity.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-6-capacitor-field-and-polarity-redrawn.svg" alt="Parallel-plate capacitor showing dielectric and electric field lines beside an electrolytic capacitor polarity sketch" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.4: Parallel-plate capacitor showing dielectric and electric field lines beside an electrolytic capacitor polarity sketch.</figcaption>
+</figure>
 
 When a capacitor is connected to a DC source through a resistor, the charging current is maximum at the first instant and falls as the capacitor voltage rises. The process is governed by the **time constant**
 
@@ -198,9 +202,12 @@ $$
 
 with $R$ in ohms, $C$ in farads, and $\tau$ in seconds. Larger $R$ or larger $C$ gives slower charging and discharging; after roughly five time constants the transient is practically complete. A fully charged capacitor in an ideal DC circuit passes no further current and behaves as an open circuit. In AC circuits the voltage changes continuously, so a capacitor repeatedly charges and discharges, and current flows in the branch at all times.
 
-Figure 1.7 shows the charging and discharging transients, with $\tau$ and $5\tau$ marked on the time axis.
+Figure 1.5 shows the charging and discharging transients, with $\tau$ and $5\tau$ marked on the time axis.
 
-![Figure 1.7: RC charging and discharging curves for capacitor voltage and current, with tau and five tau indicated](images/unit-1/figure-1-7-rc-charging-and-discharging.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-7-rc-charging-and-discharging.svg" alt="RC charging and discharging curves for capacitor voltage and current, with tau and five tau indicated" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.5: RC charging and discharging curves for capacitor voltage and current, with tau and five tau indicated.</figcaption>
+</figure>
 
 Typical applications include smoothing of rectifier outputs, AC coupling between stages, bypassing of supply noise, timing networks, and power-factor correction.
 
@@ -240,9 +247,12 @@ Inductance depends on the number of turns, coil geometry, magnetic path length, 
 
 A practical coil is made of wire with finite resistance $R_w$, and so dissipates $P_{cu} = I^{2} R_w$ in copper loss. This is why an apparently inductive coil still warms in service. In a magnetic-core inductor, increasing current eventually drives the core into **saturation**, where flux no longer rises in proportion to current. Inductance falls, current may rise more steeply than the design predicts, and additional heating results. Saturation is a central concern for power inductors, transformers, relays, and magnetic actuators; Unit 2 examines its magnetic origin.
 
-Figure 1.8 combines the magnetic-field picture of a coil with the idea of back EMF during current change.
+Figure 1.6 combines the magnetic-field picture of a coil with the idea of back EMF during current change.
 
-![Figure 1.8: Inductor coil with magnetic field lines and a current-ramp/back-EMF sketch showing opposition to change in current](images/unit-1/figure-1-8-inductor-field-and-back-emf.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-8-inductor-field-and-back-emf-redrawn.svg" alt="Inductor coil with magnetic field lines and a back-EMF sketch showing opposition to rising current" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.6: Inductor coil with magnetic field lines and a back-EMF sketch showing opposition to rising current.</figcaption>
+</figure>
 
 #### Worked Example 1.5
 
@@ -290,9 +300,12 @@ An oscilloscope displays voltage against time, with the vertical scale set in vo
 
 A **sine wave** varies smoothly and periodically. It is central to power engineering because rotating alternators produce it naturally and because AC circuit analysis takes its simplest form for sinusoids. A **square wave** alternates sharply between two levels and is the workhorse of digital circuits and clock signals. A **triangular wave** rises and falls linearly and is used in timing and waveform generation. A **sawtooth wave** rises linearly and then resets rapidly, appearing in scan and sweep circuits. A **pulse** sits at one level for a defined time and then briefly switches to another; repeated pulses drive digital control, triggering, communication, and switched power conversion.
 
-Figure 1.9 compares the common beginner waveform families and marks amplitude, peak-to-peak value, period, frequency, DC offset, and duty cycle on representative traces.
+Figure 1.7 compares the common beginner waveform families and marks amplitude, peak-to-peak value, period, frequency, DC offset, and duty cycle on representative traces.
 
-![Figure 1.9: Common waveform families including sine, square, triangular, sawtooth, pulse, and pulsating DC with amplitude, peak-to-peak value, period, frequency, DC offset, and duty-cycle annotations](images/unit-1/figure-1-9-common-waveform-families.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-9-common-waveform-families.svg" alt="Common waveform families including sine, square, triangular, sawtooth, pulse, and pulsating DC with amplitude, peak-to-peak value, period, frequency, DC offset, and duty-cycle annotations" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.7: Common waveform families including sine, square, triangular, sawtooth, pulse, and pulsating DC with amplitude, peak-to-peak value, period, frequency, DC offset, and duty-cycle annotations.</figcaption>
+</figure>
 
 ### Duty cycle
 
@@ -343,9 +356,12 @@ Not every AC waveform is sinusoidal — a square wave that alternates in polarit
 
 Every practical circuit needs an energy source — a battery, bench supply, rectifier, generator, solar module, or signal generator. For analysis these are replaced by idealised source models, because no real source is perfect and explicit modelling of the imperfection is essential when the imperfection matters.
 
-Figure 1.10 summarises the ideal and practical voltage-source and current-source models used throughout this section.
+Figure 1.8 summarises the ideal and practical voltage-source and current-source models used throughout this section.
 
-![Figure 1.10: Side-by-side ideal and practical voltage-source and current-source equivalent circuits](images/unit-1/figure-1-10-ideal-and-practical-source-models.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-10-ideal-and-practical-source-models.svg" alt="Side-by-side ideal and practical voltage-source and current-source equivalent circuits" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.8: Side-by-side ideal and practical voltage-source and current-source equivalent circuits.</figcaption>
+</figure>
 
 ### Ideal and practical voltage sources
 
@@ -367,17 +383,23 @@ $$
 
 This is a fault condition, not a design point; in real sources it is limited by internal construction, wiring resistance, protection devices, and thermal response. Equation (1.16) plots as a straight line on axes of $V$ against $I$: terminal voltage $\mathcal{E}$ at $I = 0$, falling with slope $-r_s$ and reaching zero at $I = I_{sc}$. This **terminal characteristic** captures the no-load, loaded, and fault behaviour in a single diagram.
 
-Figure 1.11 plots the terminal characteristic of a practical voltage source.
+Figure 1.9 plots the terminal characteristic of a practical voltage source.
 
-![Figure 1.11: Terminal characteristic V = E - I rs of a practical voltage source, showing open-circuit voltage, short-circuit current, and the slope -rs](images/unit-1/figure-1-11-terminal-characteristic.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-11-terminal-characteristic.svg" alt="Terminal characteristic V = E - I rs of a practical voltage source, showing open-circuit voltage, short-circuit current, and the slope -rs" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.9: Terminal characteristic V = E - I rs of a practical voltage source, showing open-circuit voltage, short-circuit current, and the slope -rs.</figcaption>
+</figure>
 
 ### Load regulation
 
 **Load regulation** describes how much the terminal voltage changes between no-load and full-load. A well-regulated source holds its voltage nearly constant as the load current varies; a poorly regulated source shows a pronounced droop. The effect is important in batteries under heavy discharge, bench DC supplies, adapters, chargers, and any regulated electronic power supply. A battery that reads 12 V on open circuit may deliver noticeably less when supplying a motor — that is load regulation in action.
 
-Figure 1.12 visualises the voltage droop from no-load to full-load.
+Figure 1.10 visualises the voltage droop from no-load to full-load.
 
-![Figure 1.12: Small voltage-droop graph showing terminal voltage falling from no-load to full-load](images/unit-1/figure-1-12-load-regulation-droop.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-12-load-regulation-droop.svg" alt="Small voltage-droop graph showing terminal voltage falling from no-load to full-load" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.10: Small voltage-droop graph showing terminal voltage falling from no-load to full-load.</figcaption>
+</figure>
 
 #### Worked Example 1.9
 
@@ -417,9 +439,12 @@ $$
 
 The series resistance in one form becomes the parallel resistance in the other; its value is unchanged. **Source transformation** is a mathematical manoeuvre on the model, not a physical change to the source: the external behaviour at the terminals is identical in both forms, and one form is often easier to analyse than the other.
 
-Figure 1.13 shows the voltage-source and current-source forms feeding the same load.
+Figure 1.11 shows the voltage-source and current-source forms feeding the same load.
 
-![Figure 1.13: Before-and-after source transformation figure showing the voltage-source form and current-source form connected to the same load](images/unit-1/figure-1-13-source-transformation.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-13-source-transformation.png" alt="Equivalent voltage-source and current-source forms connected to the same load" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.11: Equivalent voltage-source and current-source forms connected to the same load.</figcaption>
+</figure>
 
 #### Worked Example 1.11
 
@@ -466,9 +491,12 @@ An ideal voltage source is defined by constancy of voltage, not by the voltage b
 
 The standard four-band resistor colour code encodes two significant digits, a decimal multiplier, and a tolerance. Consider a resistor with bands **Brown – Black – Red – Gold**. Using the Vishay chart [Vishay, *Color Code and Standard Resistance Series*](https://www.vishay.com/docs/20143/colorcod.pdf):
 
-Figure 1.14 labels the four functional bands on a standard four-band resistor.
+Figure 1.12 summarises the four-band resistor colour code and shows a worked colour-band example.
 
-![Figure 1.14: Four-band resistor with first digit, second digit, multiplier, and tolerance bands labeled](images/unit-1/figure-1-14-resistor-colour-code.svg)
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-1/figure-1-14-resistor-colour-code.png" alt="Four-band resistor colour-code chart with digit, multiplier, tolerance, and worked example" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.12: Four-band resistor colour-code chart with digit, multiplier, tolerance, and worked example.</figcaption>
+</figure>
 
 - Brown gives the first digit, 1.
 - Black gives the second digit, 0.
