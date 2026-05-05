@@ -77,6 +77,17 @@ Hence
 
 $$\boxed{V_{o,avg} = D\,V_s} \quad \text{(13.4)}$$
 
+Figure 4.1(c) shows the same source voltage chopped with three different duty ratios. The pulse amplitude stays the same, but the average value rises with the ON-time fraction.
+
+Figure 4.1(c): Duty-cycle comparison plot.
+<div align="center">
+
+```text
+Image to include: A PWM duty-cycle plot showing equal pulse amplitude with two or three different pulse widths so that the increase in average output voltage with duty ratio is visually clear.
+```
+
+</div>
+
 For $V_s = 48 \text{ V}$ and $D = 0.6$,
 
 $$V_{o,avg} = 0.6 \times 48 = 28.8 \text{ V}.$$
@@ -89,11 +100,47 @@ With a purely resistive load, both voltage and current pulse strongly. With an i
 
 An inductive load also requires a **freewheeling diode** or an equivalent alternate path. When the main switch turns OFF, inductive current cannot fall to zero instantaneously. If no path is available, the switch voltage may rise to a dangerous value. This requirement is fundamental in chopper circuits.
 
-Figure 13.1 is shown as a generated circuit schematic and a simulation-backed waveform set for the same step-down chopper example.
+Figure 4.1(a) and Figure 4.1(b) support the same step-down chopper ideas: a basic power circuit and the corresponding representative waveforms.
 
-![Figure 13.1a: Step-down DC chopper with R-L load and freewheeling diode](images/module-4/chapter-1/figure-13-1a-step-down-chopper-rl-circuit.svg)
+Figure 4.1(a): Step-down DC chopper with R-L load and freewheeling diode.
+<div align="center">
 
-![Figure 13.1b: Simulated gate command, output voltage, and load current for the step-down chopper](images/module-4/chapter-1/figure-13-1b-step-down-chopper-rl-waveforms.svg)
+```text
+Image to include: A circuit diagram showing a DC source, main switch or chopper, freewheeling diode, and series R-L load with output polarity marked.
+```
+
+</div>
+
+Figure 4.1(b): Representative voltage and current waveforms for a step-down chopper.
+<div align="center">
+
+```text
+Image to include: A stacked waveform plot showing gate signal, output or switch-node voltage, and load current over one switching period for an inductive load.
+```
+
+</div>
+
+Figure 4.1(d) compares the current seen by a purely resistive load with the current seen by an R-L load under the same chopped voltage. The resistive-load current follows the voltage pulses directly, while the inductor smooths the current change in the R-L case.
+
+Figure 4.1(d): Current comparison for resistive and R-L loads under the same chopped voltage.
+<div align="center">
+
+```text
+Image to include: A comparison plot showing sharply pulsed resistive-load current and smoother inductive-load current on the same time axis.
+```
+
+</div>
+
+Figure 4.1(e) isolates the two current paths that matter most in introductory chopper study: the source-to-load path when the switch is ON and the freewheeling path when the switch is OFF.
+
+Figure 4.1(e): ON-state and freewheeling current paths for an inductive-load step-down chopper.
+<div align="center">
+
+```text
+Image to include: A two-panel current-path diagram showing the ON-state source-to-load loop and the OFF-state freewheeling-diode loop.
+```
+
+</div>
 
 #### Duty cycle and efficiency
 
@@ -213,7 +260,16 @@ $$I_{o,avg} \approx \frac{18 + 22}{2} = 20 \text{ A}.$$
 
 Current-limit control is attractive when current itself must be bounded, as in motor drives, battery charging, and converter protection. Unlike constant-frequency PWM, however, its switching frequency usually varies with source voltage, inductance, back EMF, and load condition because current-rise and current-fall slopes are not fixed.
 
-**Image prompt for Figure 13.2:** Create a textbook-style comparison of chopper control strategies. Show two panels. In the first panel, illustrate constant-frequency Time-Ratio Control with equally spaced gate pulses of fixed period but different pulse widths, and corresponding output-voltage pulses. In the second panel, illustrate Current-Limit Control with load current oscillating between lower limit $I_L$ and upper limit $I_U$, causing unequal switching intervals and variable switching frequency. Label $T_{ON}$, $T_{OFF}$, $D$, $I_L$, $I_U$, and indicate fixed versus variable frequency clearly. Use monochrome engineering style with axes and annotations.
+Figure 4.1(f) compares the classical timing ideas directly: constant-frequency TRC, variable-frequency TRC, and current-limit control.
+
+Figure 4.1(f): Comparison of chopper control strategies.
+<div align="center">
+
+```text
+Image to include: A multi-panel timing figure comparing constant-frequency Time-Ratio Control, variable-frequency Time-Ratio Control, and current-limit control, with the main timing differences clearly labeled.
+```
+
+</div>
 
 #### Comparing the control strategies
 
@@ -255,37 +311,136 @@ Table 13.2: Sign meaning in the output $V_o$-$I_o$ plane
 | III | Negative | Negative | Reversed-voltage, reversed-current power flow |
 | IV | Negative | Positive | Power flows with negative voltage and positive current |
 
-**Image prompt for Figure 13.3:** Create a clean textbook-style four-quadrant plot of output voltage $V_o$ on the horizontal axis and output current $I_o$ on the vertical axis. Label Quadrants I, II, III, and IV. Superimpose the classical chopper classifications: Type A in Quadrant I, Type B in Quadrant II, Type C spanning Quadrants I and II, Type D spanning Quadrants I and IV, and Type E spanning all four quadrants. Add concise annotations such as "motoring," "regeneration," "voltage reversal," and "four-quadrant operation." Use monochrome engineering style with clear arrows and labels.
+Figure 4.1(g) places the classical chopper types on the $V_o$-$I_o$ plane so that the link between sign convention and operating mode is visible immediately.
+
+Figure 4.1(g): Quadrant-based classification of choppers on the $V_o$-$I_o$ plane.
+<div align="center">
+
+```text
+Image to include: A four-quadrant plot marking the signs of output voltage and current and indicating the operating regions associated with Type-A to Type-E choppers.
+```
+
+</div>
 
 #### Type-A chopper
+
+Figure 4.1(h): Basic circuit of a Type-A chopper.
+<div align="center">
+
+```text
+Image to include: A first-quadrant chopper circuit showing a single main chopper, freewheeling diode, and inductive load.
+```
+
+</div>
 
 The **Type-A chopper** operates in the **first quadrant**, so both output voltage and output current are positive. Power flows from source to load. With an inductive load, current remains positive and typically freewheels through a diode during the OFF interval. In modern terminology, this is the classical **step-down chopper** or **buck-type** case [Rashid, *Power Electronics: Circuits, Devices and Applications*, 4e].
 
 Typical applications include DC motor motoring operation, battery-fed DC loads, step-down converter stages, and battery charging from a higher-voltage DC source.
 
+Figure 4.1(i): Representative output voltage and current waveforms of a Type-A chopper.
+<div align="center">
+
+```text
+Image to include: A waveform plot showing positive output voltage pulses and positive load current, with continuous or discontinuous current indicated if helpful.
+```
+
+</div>
+
 #### Type-B chopper
+
+Figure 4.1(j): Basic circuit of a Type-B chopper.
+<div align="center">
+
+```text
+Image to include: A second-quadrant chopper circuit suitable for regenerative operation, showing the load, energy-return path, and device orientation clearly.
+```
+
+</div>
 
 The **Type-B chopper** operates in the **second quadrant**. Output voltage is positive, but output current is negative according to the adopted sign convention. This requires a load capable of returning energy, such as a DC motor under regenerative braking or an inductive load with stored energy and back EMF.
 
 In Type-B operation, power flows from load back to source. The classical application is **regeneration**, where energy is returned to the source instead of being dissipated in a resistor [Singh and Khanchandani, *Power Electronics*].
 
+Figure 4.1(k): Representative output voltage and current waveforms of a Type-B chopper.
+<div align="center">
+
+```text
+Image to include: A waveform plot showing positive output voltage and negative output current for regenerative operation.
+```
+
+</div>
+
 #### Type-C chopper
+
+Figure 4.1(l): Basic circuit of a Type-C chopper.
+<div align="center">
+
+```text
+Image to include: A two-quadrant Type-C chopper circuit formed from Type-A and Type-B behavior, with the elements labeled clearly.
+```
+
+</div>
 
 The **Type-C chopper** combines Type-A and Type-B behavior and therefore operates in the **first and second quadrants**. Output voltage remains positive, while output current may be positive or negative.
 
 This arrangement permits forward motoring and forward regenerative braking without reversing output-voltage polarity. It is therefore useful in DC drives and battery systems that must alternate between power delivery and energy recovery.
 
+Figure 4.1(m): Representative output voltage and current waveforms of a Type-C chopper.
+<div align="center">
+
+```text
+Image to include: A waveform plot showing positive output voltage with output current capable of becoming positive or negative.
+```
+
+</div>
+
 #### Type-D chopper
+
+Figure 4.1(n): Basic circuit of a Type-D chopper.
+<div align="center">
+
+```text
+Image to include: A two-quadrant Type-D chopper circuit in which output voltage can reverse while load current remains positive.
+```
+
+</div>
 
 The **Type-D chopper** operates in the **first and fourth quadrants**. Output current remains positive, while output voltage can be positive or negative.
 
 This type is used when the converter must reverse the applied voltage across an inductive load while current continuity keeps the instantaneous current in one direction. It is a useful intermediate case between simple one-quadrant operation and full bridge-based reversal.
 
+Figure 4.1(o): Representative output voltage and current waveforms of a Type-D chopper.
+<div align="center">
+
+```text
+Image to include: A waveform plot showing positive and negative output voltage intervals while output current remains positive.
+```
+
+</div>
+
 #### Type-E chopper
+
+Figure 4.1(p): Basic circuit of a Type-E chopper.
+<div align="center">
+
+```text
+Image to include: A four-quadrant chopper circuit showing four controlled switches with antiparallel diodes, equivalent to an H-bridge style arrangement.
+```
+
+</div>
 
 The **Type-E chopper** is the **four-quadrant chopper**. Both output voltage and output current can reverse, so operation is possible in all four quadrants.
 
 This is the most flexible classical type. It supports forward motoring, forward regeneration, reverse motoring, and reverse regeneration. In modern hardware, equivalent behavior is commonly realized with an **H-bridge** or another full-bridge arrangement.
+
+Figure 4.1(q): Representative output voltage and current waveforms of a Type-E chopper.
+<div align="center">
+
+```text
+Image to include: A waveform or operating-mode figure showing all four quadrants, with both output voltage and output current capable of reversing.
+```
+
+</div>
 
 #### Summary of the five types
 
