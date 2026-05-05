@@ -10,7 +10,10 @@ A current flowing through a coil produces a magnetic effect, and that effect is 
 
 A current in a straight wire sets up a magnetic field around it. The same current in a coil wound on an iron core produces a much stronger field, because iron and steel carry magnetic flux far more easily than air. Engineers describe the preferred path of that flux through iron as a **magnetic circuit**. The name is an analogy for calculation, not a claim that flux is a flowing substance in the sense that current is a flow of charge [V. K. Mehta and Rohit Mehta, *Principles of Electrical Engineering and Electronics*].
 
-**Image prompt for Figure 2.1:** Create a clean textbook-style illustration of a toroidal iron core carrying a uniformly wound coil of $N$ turns connected to a DC source and switch. Label current $I$, magnetomotive force $NI$, magnetic flux $\Phi$ circulating inside the core, mean magnetic path length $l$, cross-sectional area $A$, and a few small leakage-flux lines outside the core. Show the core as laminated steel, not as a solid cartoon ring.
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-2/figure-2-1-toroidal-magnetic-circuit.png" alt="Toroidal laminated iron core with a wound coil connected to a DC source, showing current, magnetomotive force, magnetic flux, path length, cross-sectional area, and leakage flux" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 2.1: Toroidal magnetic circuit showing coil current, magnetomotive force, core flux path, and leakage flux.</figcaption>
+</figure>
 
 #### Magnetomotive force
 
@@ -178,7 +181,10 @@ The first rise of $B$ from an unmagnetized state is the **initial magnetization 
 - **Hard magnetic materials** retain magnetism strongly and have wide loops, suiting them to permanent magnets.
 - **Ferrites** combine magnetic behaviour with high electrical resistivity, reducing eddy-current loss at higher frequencies.
 
-**Image prompt for Figure 2.2:** Create a clean textbook-style graph of magnetic flux density $B$ on the vertical axis versus magnetic field intensity $H$ on the horizontal axis. Show an initial magnetization curve rising from the origin and bending toward saturation. On the same figure show a full hysteresis loop with labels for positive saturation, negative saturation, remanent flux density (retentivity), and coercive field strength. Use clear engineering-style axes and a neutral white background.
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-2/figure-2-2-bh-curve-and-hysteresis-loop.png" alt="B-H graph showing magnetic flux density versus magnetic field intensity, including an initial magnetization curve and a full hysteresis loop with saturation, retentivity, and coercivity" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 2.2: B-H curve and hysteresis loop showing saturation, retentivity, and coercivity.</figcaption>
+</figure>
 
 #### Hysteresis loop
 
@@ -205,7 +211,10 @@ Hysteresis loss depends on repeated magnetization of the material; eddy-current 
 
 Place a coil near a stationary magnet and nothing appears at the terminals. Move the magnet toward the coil and a voltage appears; pull it away and the voltage reverses; hold the magnet still again and the voltage vanishes. This is the central fact of **electromagnetic induction**: an emf is induced in a conductor or coil whenever the magnetic flux linking it changes [Britannica, *Faraday's law of induction*](https://www.britannica.com/science/Faradays-law-of-induction). Generators, transformers, ignition coils, inductive sensors, chokes, and most switched-mode power converters depend on it.
 
-**Image prompt for Figure 2.3:** Create a clean textbook-style technical illustration of a bar magnet moving toward and away from a fixed coil connected to a center-zero galvanometer. Show the north pole approaching the coil in one view and receding in another view. Label magnet motion, magnetic flux through the coil, induced current direction, and galvanometer deflection direction. Do not use decorative elements.
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-2/figure-2-3-magnet-coil-induction-galvanometer.png" alt="Bar magnet moving toward and away from a coil connected to a center-zero galvanometer, showing magnetic flux, induced current direction, and opposite galvanometer deflections" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 2.3: Induced current and galvanometer deflection when a bar magnet approaches and recedes from a coil.</figcaption>
+</figure>
 
 #### Faraday's laws
 
@@ -299,7 +308,10 @@ $$
 
 where $L_1$ and $L_2$ are the self-inductances and $0 \le k \le 1$. A value near 1 indicates tight coupling; a small value indicates loose coupling. Even in transformer windings on a common core, $k$ is slightly less than 1, which is why real transformers exhibit leakage reactance and voltage regulation.
 
-**Image prompt for Figure 2.4:** Create a clean textbook-style illustration of two coils wound on a common laminated iron core. Label the left coil primary, the right coil secondary, primary current $i_1$, changing mutual flux $\Phi_m$ in the core, self-flux around the primary, leakage flux, and induced emf $e_2$ at the secondary terminals. Show only the essential magnetic paths and coil labels.
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-2/figure-2-4-mutual-induction-common-core.png" alt="Two coils wound on a common laminated iron core, showing primary current, mutual flux in the core, self-flux, leakage flux, and induced emf at the secondary" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 2.4: Mutual induction in two coils on a common core, showing mutual flux, self-flux, leakage flux, and induced secondary emf.</figcaption>
+</figure>
 
 #### Worked Example 2.6
 
@@ -313,7 +325,10 @@ $$
 
 The direction of an induced emf, or of the force on a current-carrying conductor, is set by the mutual orientation of field, current, and motion. Two hand rules due to Fleming fix this direction at a glance: one for motor action, the other for generator action.
 
-**Image prompt for Figure 2.5:** Create a clean textbook-style side-by-side illustration of Fleming's left-hand rule and Fleming's right-hand rule. For the left hand, label forefinger as magnetic field $B$, middle finger as current $I$, and thumb as force or motion. For the right hand, label forefinger as magnetic field $B$, thumb as motion of conductor, and middle finger as induced current $I$. Use clear finger labels and no decorative background.
+<figure style="text-align: center; margin: 1.5rem auto;">
+  <img src="images/unit-2/figure-2-5-fleming-left-and-right-hand-rules.png" alt="Side-by-side illustration of Fleming's left-hand rule and Fleming's right-hand rule, labeling magnetic field, current, and motion directions" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 2.5: Fleming's left-hand rule for motoring action and right-hand rule for generating action.</figcaption>
+</figure>
 
 #### Fleming's Left-Hand Rule
 
