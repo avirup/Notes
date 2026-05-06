@@ -1,0 +1,57 @@
+\definecolor{BookWorkedBg}{HTML}{F7FAFC}
+\definecolor{BookWorkedFrame}{HTML}{6F8795}
+
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries\color{BookText}}
+  {\color{BookAccent}\thesection}
+  {0.75em}
+  {}
+  [\vspace{0.22em}{\color{BookRule}\titlerule[0.35pt]}]
+\titlespacing*{\section}{0pt}{2.15em plus 0.4em minus 0.2em}{0.85em}
+
+\titleformat{\subsection}
+  {\normalfont\sffamily\normalsize\bfseries\color{BookText}}
+  {\color{BookAccent}\thesubsection}
+  {0.55em}
+  {}
+\titlespacing*{\subsection}{0pt}{1.15em plus 0.25em minus 0.15em}{0.26em}
+
+\newcommand{\booktablecaption}[1]{%
+  \par\addvspace{0.85em}%
+  \noindent{\small\sffamily\bfseries\color{BookAccent}#1}\par
+  \vspace{-0.2em}%
+}
+
+\newtcolorbox{workedexample}[1]{%
+  enhanced,
+  breakable,
+  colback=BookWorkedBg,
+  colframe=BookWorkedFrame,
+  boxrule=0.45pt,
+  leftrule=2.2pt,
+  arc=1.2pt,
+  outer arc=1.2pt,
+  title={#1},
+  coltitle=BookText,
+  colbacktitle=BookWorkedBg,
+  fonttitle=\sffamily\bfseries,
+  attach boxed title to top left={xshift=0.6em,yshift=-0.45\baselineskip},
+  boxed title style={
+    sharp corners,
+    boxrule=0pt,
+    colback=BookWorkedBg,
+    left=0.25em,
+    right=0.25em,
+    top=0pt,
+    bottom=0pt
+  },
+  top=1.05em,
+  bottom=0.45em,
+  left=0.75em,
+  right=0.75em,
+  before skip=1.0em plus 0.2em,
+  after skip=1.0em plus 0.2em,
+}
