@@ -83,13 +83,14 @@ classoption:
   - twoside
 fontsize: 11pt
 geometry:
-  - a4paper
-  - inner=28mm
-  - outer=22mm
-  - top=24mm
-  - bottom=28mm
-  - headsep=10mm
-linestretch: 1.15
+  - paperwidth=7in
+  - paperheight=10in
+  - inner=0.90in
+  - outer=0.72in
+  - top=0.64in
+  - bottom=0.82in
+  - headsep=0.18in
+linestretch: 1.22
 toc: false
 colorlinks: false
 linkcolor: black

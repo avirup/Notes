@@ -55,7 +55,7 @@ $$
 
 The kWh on an electricity bill is a unit of energy, not power.
 
-**Table 1.1 Basic electrical quantities**
+**Table 1.1: Basic electrical quantities**
 
 | Quantity | Symbol | SI unit | Meaning |
 |---|---:|---:|---|
@@ -65,7 +65,7 @@ The kWh on an electricity bill is a unit of energy, not power.
 | Energy | $W$ or $E$ | joule (J) | total electrical work done |
 | Charge | $Q$ | coulomb (C) | quantity of electricity |
 
-#### Worked Example 1.1
+::: {.worked-example title="Worked Example 1.1"}
 
 A 12 V battery supplies 0.5 A to a lamp for 3 hours. Find the power and the energy consumed.
 
@@ -79,7 +79,9 @@ $$
 W = Pt = 6 \times 10{,}800 = 64{,}800~\text{J} = 18~\text{Wh}
 $$
 
-#### Worked Example 1.2
+:::
+
+::: {.worked-example title="Worked Example 1.2"}
 
 A 230 V table fan draws 0.25 A. Estimate its input power.
 
@@ -88,6 +90,8 @@ P = VI = 230 \times 0.25 = 57.5~\text{W}
 $$
 
 This is a first estimate. For AC loads the true average power also depends on the power factor, as shown in the AC chapter.
+
+:::
 
 A final caution on measurement: a voltmeter is connected across a component, an ammeter in series with it. Reversing these connections is the most common cause of blown multimeter fuses in the laboratory.
 
@@ -128,7 +132,7 @@ A resistor is selected for three parameters: resistance value, **power rating**,
 
 #### Temperature effect
 
-The resistance of a real resistor is not strictly constant with temperature. In most metallic resistors, resistance rises slightly as temperature rises, because increased lattice vibration scatters the conduction electrons more strongly. This behaviour is summarised by the temperature coefficient of resistance. It is negligible in low-power beginner problems but matters for precision instrumentation, high-current paths where self-heating is significant, and circuits required to be stable over a wide ambient range.
+The resistance of a real resistor is not strictly constant with temperature. In most metallic resistors, resistance rises slightly as temperature rises, because increased lattice vibration scatters the conduction electrons more strongly. This behaviour is summarised by the temperature coefficient of resistance. It is negligible in many low-power calculations but matters for precision instrumentation, high-current paths where self-heating is significant, and circuits required to be stable over a wide ambient range.
 
 #### Voltage divider
 
@@ -150,7 +154,7 @@ $$
 V_{out} = \frac{1}{2+1} \times 12 = 4~\text{V}
 $$
 
-The divider relation is one of the most frequently used small formulas in introductory electronics, appearing in transistor biasing, sensor reference networks, and signal conditioning.
+The divider relation is one of the most frequently used small formulas in electronics, appearing in transistor biasing, sensor reference networks, and signal conditioning.
 
 Figure 1.3 shows the divider tap and the reference to ground explicitly.
 
@@ -159,7 +163,7 @@ Figure 1.3 shows the divider tap and the reference to ground explicitly.
   <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.3: Voltage divider with output Vout taken from the junction of R1 and R2 with respect to ground.</figcaption>
 </figure>
 
-#### Worked Example 1.3
+::: {.worked-example title="Worked Example 1.3"}
 
 A 10 V source is connected across a 2 kΩ resistor. Find the current and the power dissipated.
 
@@ -172,6 +176,8 @@ P = VI = 10 \times 0.005 = 0.05~\text{W}
 $$
 
 A 0.25 W resistor is a safe practical choice for this dissipation.
+
+:::
 
 ### Capacitor
 
@@ -215,7 +221,7 @@ Typical applications include smoothing of rectifier outputs, AC coupling between
 
 Different dielectrics suit different duties. **Ceramic** capacitors are small, non-polarised, and dominate in decoupling and high-frequency bypassing. **Electrolytic** capacitors offer high capacitance in a small volume but are polarised and must be connected with the correct polarity; reverse connection beyond the rated reverse voltage can cause heating, leakage, or violent failure. **Film** capacitors are stable and reliable, favoured in AC, audio, timing, and motor-run applications. **Mica** and other specialist capacitors are used where stability or high-frequency performance is critical. Selection therefore depends on voltage rating, polarity, tolerance, intended AC or DC duty, and the physical and thermal environment — not on capacitance value alone.
 
-#### Worked Example 1.4
+::: {.worked-example title="Worked Example 1.4"}
 
 A 1000 μF capacitor is charged to 12 V. Find the energy stored.
 
@@ -228,6 +234,8 @@ W_C = \tfrac{1}{2} C V^{2} = \tfrac{1}{2} \times 10^{-3} \times 144 = 0.072~\tex
 $$
 
 The value is small compared with battery energy but is routinely exploited in smoothing and short-term hold-up applications.
+
+:::
 
 ### Inductor
 
@@ -254,7 +262,7 @@ Figure 1.6 combines the magnetic-field picture of a coil with the idea of back E
   <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.6: Inductor coil with magnetic field lines and a back-EMF sketch showing opposition to rising current.</figcaption>
 </figure>
 
-#### Worked Example 1.5
+::: {.worked-example title="Worked Example 1.5"}
 
 An inductor of 20 mH carries a current of 2 A. Find the stored energy.
 
@@ -262,7 +270,9 @@ $$
 W_L = \tfrac{1}{2} L I^{2} = \tfrac{1}{2} \times 0.02 \times 4 = 0.04~\text{J}
 $$
 
-**Table 1.2 Comparison of the three passive components**
+:::
+
+**Table 1.2: Comparison of the three passive components**
 
 | Component | Main effect | Unit | Stores energy in | Steady-DC behaviour | Common use |
 |---|---|---:|---|---|---|
@@ -300,7 +310,7 @@ An oscilloscope displays voltage against time, with the vertical scale set in vo
 
 A **sine wave** varies smoothly and periodically. It is central to power engineering because rotating alternators produce it naturally and because AC circuit analysis takes its simplest form for sinusoids. A **square wave** alternates sharply between two levels and is the workhorse of digital circuits and clock signals. A **triangular wave** rises and falls linearly and is used in timing and waveform generation. A **sawtooth wave** rises linearly and then resets rapidly, appearing in scan and sweep circuits. A **pulse** sits at one level for a defined time and then briefly switches to another; repeated pulses drive digital control, triggering, communication, and switched power conversion.
 
-Figure 1.7 compares the common beginner waveform families and marks amplitude, peak-to-peak value, period, frequency, DC offset, and duty cycle on representative traces.
+Figure 1.7 compares common waveform families and marks amplitude, peak-to-peak value, period, frequency, DC offset, and duty cycle on representative traces.
 
 <figure style="text-align: center; margin: 1.5rem auto;">
   <img src="images/unit-1/figure-1-9-common-waveform-families.svg" alt="Common waveform families including sine, square, triangular, sawtooth, pulse, and pulsating DC with amplitude, peak-to-peak value, period, frequency, DC offset, and duty-cycle annotations" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
@@ -317,7 +327,7 @@ $$
 
 A pulse high for 2 ms in every 10 ms period has a duty cycle of 20 %. Duty cycle is central to digital signalling, motor speed control, DC–DC conversion, and pulse-width-modulated power delivery.
 
-#### Worked Example 1.6
+::: {.worked-example title="Worked Example 1.6"}
 
 A waveform repeats every 5 ms. Find its frequency.
 
@@ -325,7 +335,9 @@ $$
 f = \frac{1}{T} = \frac{1}{5 \times 10^{-3}} = 200~\text{Hz}
 $$
 
-#### Worked Example 1.7
+:::
+
+::: {.worked-example title="Worked Example 1.7"}
 
 A pulse waveform has a period of 8 ms and a high-state time of 3 ms. Find the duty cycle.
 
@@ -333,7 +345,9 @@ $$
 D = \frac{3}{8} \times 100\,\% = 37.5\,\%
 $$
 
-#### Worked Example 1.8
+:::
+
+::: {.worked-example title="Worked Example 1.8"}
 
 A DSO is set to 5 ms/div and one complete cycle occupies four horizontal divisions. Find the frequency.
 
@@ -341,7 +355,9 @@ $$
 T = 4 \times 5~\text{ms} = 20~\text{ms}, \qquad f = \frac{1}{0.02} = 50~\text{Hz}
 $$
 
-**Table 1.3 Simple waveform classification**
+:::
+
+**Table 1.3: Simple waveform classification**
 
 | Signal type | Repeats regularly? | Polarity | Example |
 |---|---|---|---|
@@ -401,7 +417,7 @@ Figure 1.10 visualises the voltage droop from no-load to full-load.
   <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.10: Small voltage-droop graph showing terminal voltage falling from no-load to full-load.</figcaption>
 </figure>
 
-#### Worked Example 1.9
+::: {.worked-example title="Worked Example 1.9"}
 
 A battery of EMF 12 V and internal resistance 0.5 Ω supplies 2 A to a load. Find the terminal voltage.
 
@@ -409,11 +425,13 @@ $$
 V = 12 - (2 \times 0.5) = 11~\text{V}
 $$
 
+:::
+
 ### Ideal and practical current sources
 
 An **ideal current source** holds its output current constant for any terminal voltage; its internal resistance is infinite. A practical current source is modelled as an ideal current source in parallel with a large internal resistance $R_p$. The parallel placement is the correct choice because a large parallel resistance diverts very little of the source current away from the load. Current sources appear naturally in transistor bias networks, current mirrors, and sensor interfaces, even when no explicit current-source symbol appears in the final schematic.
 
-#### Worked Example 1.10
+::: {.worked-example title="Worked Example 1.10"}
 
 An ideal 10 mA current source drives a 500 Ω load. Find the load voltage.
 
@@ -422,6 +440,8 @@ V = IR = 0.01 \times 500 = 5~\text{V}
 $$
 
 The current is fixed by the source; the voltage adjusts to whatever the load requires.
+
+:::
 
 ### Source transformation
 
@@ -446,7 +466,7 @@ Figure 1.11 shows the voltage-source and current-source forms feeding the same l
   <figcaption style="font-size: 0.85em; color: #555; margin-top: 0.5rem;">Figure 1.11: Equivalent voltage-source and current-source forms connected to the same load.</figcaption>
 </figure>
 
-#### Worked Example 1.11
+::: {.worked-example title="Worked Example 1.11"}
 
 Transform a 12 V source in series with 6 Ω into its equivalent current-source form.
 
@@ -456,7 +476,9 @@ $$
 
 The equivalent is a 2 A current source in parallel with 6 Ω.
 
-#### Worked Example 1.12
+:::
+
+::: {.worked-example title="Worked Example 1.12"}
 
 Connect the source of Example 1.11 to a 3 Ω load and find the load current by both forms.
 
@@ -478,7 +500,9 @@ $$
 
 Both forms give the same load current, confirming the equivalence.
 
-**Table 1.4 Ideal and practical source models**
+:::
+
+**Table 1.4: Ideal and practical source models**
 
 | Source type | Ideal internal resistance | Practical form | Intended behaviour |
 |---|---:|---|---|
@@ -487,9 +511,11 @@ Both forms give the same load current, confirming the equivalence.
 
 An ideal voltage source is defined by constancy of voltage, not by the voltage being large; likewise an ideal current source is defined by constancy of current. No real source maintains its rated value under every condition, which is the practical reason internal resistance appears in the model at all.
 
-## Worked Interpretation Exercise: Reading the Resistor Colour Code
+## Worked Interpretation Exercise
 
-The standard four-band resistor colour code encodes two significant digits, a decimal multiplier, and a tolerance. Consider a resistor with bands **Brown – Black – Red – Gold**. Using the Vishay chart [Vishay, *Color Code and Standard Resistance Series*](https://www.vishay.com/docs/20143/colorcod.pdf):
+### Reading the Resistor Colour Code
+
+The standard four-band resistor colour code encodes two significant digits, a decimal multiplier, and a tolerance. Consider a resistor with bands **Brown – Black – Red – Gold**.
 
 Figure 1.12 summarises the four-band resistor colour code and shows a worked colour-band example.
 
@@ -517,23 +543,12 @@ $$
 
 A multimeter reading of 0.99 kΩ on the resistor, measured out of circuit, is consistent with the code. This exercise links component marking, nominal value, manufacturing tolerance, and measured value in a single practical task, and is a laboratory skill worth developing early.
 
-## Chapter Summary
-
-- EMF is the energy delivered per unit charge by a source: $V = W/Q$. Potential difference is the voltage between two points in a circuit.
-- Current is the rate of flow of charge, $I = Q/t$; power in a DC circuit is $P = VI$; energy delivered in time $t$ is $W = Pt = VIt$.
-- $1~\text{Wh} = 3600~\text{J}$ and $1~\text{kWh} = 3.6 \times 10^{6}~\text{J}$.
-- A resistor obeys $V = IR$ in its linear region and dissipates $P = VI = I^{2}R = V^{2}/R$.
-- A capacitor stores energy in an electric field: $C = Q/V$, $W_C = \tfrac{1}{2} C V^{2}$. It blocks steady DC once charged and passes current only when its voltage changes; the RC time constant is $\tau = RC$.
-- An inductor stores energy in a magnetic field and opposes change in current: $v = L\,di/dt$, $W_L = \tfrac{1}{2} L I^{2}$.
-- A DC signal has one polarity (steady or pulsating); an AC signal reverses polarity periodically. A periodic waveform of period $T$ has frequency $f = 1/T$; duty cycle is $D = t_{on}/T$.
-- An ideal voltage source has zero internal resistance; a practical one has a series $r_s$, giving $V = \mathcal{E} - I r_s$.
-- An ideal current source has infinite internal resistance; a practical one has a parallel $R_p$.
-- Source transformation connects the two practical forms through $I_s = \mathcal{E}/R$ and $\mathcal{E} = I_s R$, with $R$ unchanged.
-
 ## Further Reading
 
-- [BIPM, *The International System of Units (SI) Brochure*](https://www.bipm.org/en/publications/si-brochure/) — authoritative reference for SI units, symbols, and prefixes.
-- [Keysight, *Basic Oscilloscope Fundamentals*](https://www.keysight.com/zz/en/assets/7018-01761/application-notes/5989-8064.pdf) — practical introduction to waveform display, amplitude, and time base.
-- [Vishay, *Color Code and Standard Resistance Series*](https://www.vishay.com/docs/20143/colorcod.pdf) — manufacturer reference for the resistor colour code.
-- S. K. Bhattacharya, *Basic Electricals and Electronics* — diploma-level introductory text covering basic quantities, passive components, and source models.
-- V. K. Mehta and Rohit Mehta, *Principles of Electrical Engineering and Electronics* — foundational first-year text on circuit quantities, passive elements, and practical source concepts.
+1. Charles K. Alexander and Matthew N. O. Sadiku, *Fundamentals of Electric Circuits* — widely used circuit-analysis text for sources, passive elements, and basic circuit laws.
+
+2. James W. Nilsson and Susan A. Riedel, *Electric Circuits* — standard undergraduate text with strong treatment of voltage, current, power, source models, and first-order circuits.
+
+3. Edward Hughes, John Hiley, Keith Brown, and Ian McKenzie Smith, *Electrical and Electronic Technology* — popular introductory text for electrical quantities, components, measurements, and practical technology.
+
+4. V. K. Mehta and Rohit Mehta, *Principles of Electrical Engineering and Electronics* — widely used introductory text for circuit quantities, passive elements, and practical electrical concepts.
